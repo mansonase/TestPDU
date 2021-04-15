@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Test PDU</string>
+    <string name="need_fine_permission">需要位置權限</string>
+    <string name="need_fine_permission_to_use_ble">需要位置權限來開啟藍芽</string>
+    <string name="ok_i_know">好的，知道了</string>
+    <string name="press_no">按下拒絕</string>
+    <string name="allow_permission">允許權限</string>
+
+    <string name="menu_scan">Scan</string>
+    <string name="menu_stop">Stop</string>
+</resources>
