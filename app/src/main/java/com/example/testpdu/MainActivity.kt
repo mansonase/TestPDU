@@ -294,6 +294,13 @@ class MainActivity : AppCompatActivity() {
             holder.txAddress.text= mLeDevices[position].address
             holder.txRssi.text=mRssiList[position].toString()
 
+            holder.txAddress.setOnClickListener {
+                Log.d("testpdu","${mLeDevices[position].name}, and ${mLeDevices[position].address}")
+
+
+            }
+
+
         }
 
         override fun getItemCount(): Int {
@@ -302,10 +309,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     class ViewHolder(v:View):RecyclerView.ViewHolder(v){
-        
+
         val txName:TextView=v.findViewById(R.id.device_name)
         val txAddress:TextView=v.findViewById(R.id.device_address)
         val txRssi:TextView=v.findViewById(R.id.device_rssi)
+
 
     }
 }

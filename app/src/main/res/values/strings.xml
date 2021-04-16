@@ -9,4 +9,26 @@
     <string name="menu_scan">Scan</string>
     <string name="menu_stop">Stop</string>
 
+    <string name="device_name">Device Name</string>
+    <string name="appearance">Appearance</string>
+
+    <string name="device_id">Device ID</string>
+    <string name="model_number">Model Number</string>
+    <string name="serial_number">Serial Number</string>
+    <string name="firmware_version">Firmware Version</string>
+    <string name="hardware_version">Hardware Version</string>
+    <string name="software_version">Software Version</string>
+    <string name="manufacturer_name">Manufacturer Name</string>
+    
+    <string name="current">Current</string>
+    <string name="Voltage">Voltage</string>
+    <string name="watt">Watt</string>
+    <string name="power_factor">Power Factor</string>
+    <string name="load">Load</string>
+    <string name="load_detect">Load Detected</string>
+    
+    <string name="hardware_status">Hardware Status</string>
+    <string name="software_status">Software Status</string>
+    <string name="error_code">Error Code</string>
+    
 </resources>
