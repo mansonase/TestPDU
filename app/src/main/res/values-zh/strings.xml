@@ -9,6 +9,8 @@
 
     <string name="menu_scan">Scan</string>
     <string name="menu_stop">Stop</string>
+    <string name="menu_connect">Connect</string>
+    <string name="menu_disconnect">Disconnect</string>
 
     <string name="device_name">Device Name</string>
     <string name="appearance">Appearance</string>

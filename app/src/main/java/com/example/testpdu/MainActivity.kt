@@ -4,12 +4,12 @@ import android.Manifest
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
+import android.bluetooth.le.BluetoothLeScanner
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
 import android.content.*
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -19,10 +19,13 @@ import android.view.*
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.listitem_device.view.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var arrayList: ArrayList<BluetoothDevice>
     private lateinit var rssiList:ArrayList<Int>
+    private var scanner:BluetoothLeScanner?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         mRecyclerView=findViewById<RecyclerView>(R.id.recyclerview)
         mRecyclerView.layoutManager=layoutManager
 
-        mRecyclerView.addItemDecoration(DividerItemDecoration(this,DividerItemDecoration.VERTICAL))
+        mRecyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         arrayList= ArrayList()
         rssiList= ArrayList()
 
@@ -57,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             finish()
             return
         }
-        Log.d("testpdu","pass manager and adapter")
+        Log.d("testpdu", "pass manager and adapter")
     }
 
     override fun onResume() {
@@ -65,15 +69,18 @@ class MainActivity : AppCompatActivity() {
         registerReceiver(mReceiver, IntentFilter(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED))
 
 
-        mLeDeviceListAdapter= LeDeviceListAdapter(arrayList,rssiList)
+        mLeDeviceListAdapter= LeDeviceListAdapter(arrayList, rssiList)
 
         if (adapter.isEnabled) {
             if (getPermissionsBLE()) {
+                if (scanner==null) {
+                    scanner = adapter.bluetoothLeScanner
+                }
                 scanLeDevice(true)
             }
         }else{
             adapter.enable()
-            Log.d("testpdu","open ble")
+            Log.d("testpdu", "open ble")
         }
     }
 
@@ -86,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
         if (menu==null)return true
 
-        menuInflater.inflate(R.menu.main,menu)
+        menuInflater.inflate(R.menu.main, menu)
 
         if (!isScanning){
             menu.findItem(R.id.menu_stop).isVisible=false
@@ -105,11 +112,11 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when(item.itemId){
-            R.id.menu_scan->{
+            R.id.menu_scan -> {
                 mLeDeviceListAdapter.clear()
                 scanLeDevice(true)
             }
-            R.id.menu_stop->{
+            R.id.menu_stop -> {
                 scanLeDevice(false)
             }
         }
@@ -120,7 +127,8 @@ class MainActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
-        grantResults: IntArray) {
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (requestCode == 1) {
@@ -131,7 +139,7 @@ class MainActivity : AppCompatActivity() {
                         Manifest.permission.ACCESS_FINE_LOCATION)) {
 
 
-                    var intent: Intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                    var intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                     var uri: Uri = Uri.fromParts("package", packageName, null)
                     intent.data = uri
                     startActivity(intent)
@@ -159,6 +167,9 @@ class MainActivity : AppCompatActivity() {
                     BluetoothAdapter.STATE_OFF -> Log.d("testpdu", "state off")
                     BluetoothAdapter.STATE_ON -> {
                         Log.d("testpdu", "state on")
+                        if (scanner==null) {
+                            scanner = adapter.bluetoothLeScanner
+                        }
                         scanLeDevice(true)
                     }
                 }
@@ -172,7 +183,7 @@ class MainActivity : AppCompatActivity() {
 
             if (result==null)return
 
-            mLeDeviceListAdapter.addDevice(result.device,result.rssi)
+            mLeDeviceListAdapter.addDevice(result.device, result.rssi)
 
             mRecyclerView.adapter=mLeDeviceListAdapter
             //Log.d("testpdu"," address : ${result.device.address}, name : ${result.device.name}")
@@ -195,7 +206,8 @@ class MainActivity : AppCompatActivity() {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )) {
 
                 AlertDialog.Builder(this)
                     .setCancelable(false)
@@ -230,33 +242,37 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun scanLeDevice(enable:Boolean) {
+    private fun scanLeDevice(enable: Boolean) {
 
-        val scanner= adapter.bluetoothLeScanner ?: return
-
+        if (scanner==null){
+            scanner=adapter.bluetoothLeScanner
+        }
         if (enable){
 
             Handler(Looper.getMainLooper()).postDelayed({
-                isScanning=false
-                scanner.stopScan(mLeScanCallback)
+                isScanning = false
+                scanner?.stopScan(mLeScanCallback)
                 invalidateOptionsMenu()
-                Log.d("testpdu","........stop scan now")
-            },10000)
+                Log.d("testpdu", "........stop scan now")
+            }, 10000)
 
             isScanning=true
-            scanner.startScan(mLeScanCallback)
+            scanner?.startScan(mLeScanCallback)
 
         }else{
 
             isScanning=false
-            scanner.stopScan(mLeScanCallback)
+            scanner?.stopScan(mLeScanCallback)
 
         }
         invalidateOptionsMenu()
 
     }
 
-    class LeDeviceListAdapter(private var mLeDevices:ArrayList<BluetoothDevice>, private var mRssiList:ArrayList<Int>): RecyclerView.Adapter<ViewHolder>() {
+   inner class LeDeviceListAdapter(
+        private var mLeDevices: ArrayList<BluetoothDevice>,
+        private var mRssiList: ArrayList<Int>
+    ): RecyclerView.Adapter<ViewHolder>() {
 
 
 
@@ -269,7 +285,7 @@ class MainActivity : AppCompatActivity() {
             mRssiList.clear()
         }
 
-        fun addDevice(device: BluetoothDevice, rssi:Int){
+        fun addDevice(device: BluetoothDevice, rssi: Int){
 
             if (device.name==null)return
 
@@ -278,14 +294,18 @@ class MainActivity : AppCompatActivity() {
             if (!mLeDevices.contains(device)){
                 mLeDevices.add(device)
                 mRssiList.add(rssi)
-                Log.d("testpdu"," address : ${device.address}, name : ${device.name}, rssi: $rssi")
+                Log.d("testpdu", " address : ${device.address}, name : ${device.name}, rssi: $rssi")
             }
 
         }
 
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val v=LayoutInflater.from(parent.context).inflate(R.layout.listitem_device,parent,false)
+            val v=LayoutInflater.from(parent.context).inflate(
+                R.layout.listitem_device,
+                parent,
+                false
+            )
             return ViewHolder(v)
         }
 
@@ -295,10 +315,24 @@ class MainActivity : AppCompatActivity() {
             holder.txRssi.text=mRssiList[position].toString()
 
             holder.txAddress.setOnClickListener {
-                Log.d("testpdu","${mLeDevices[position].name}, and ${mLeDevices[position].address}")
+                Log.d(
+                    "testpdu",
+                    "${mLeDevices[position].name}, and ${mLeDevices[position].address}"
+                )
+
+                val intent = Intent(holder.txAddress.context, ContentActivity::class.java)
+                intent.putExtra(GattAttributes.DEVICE_NAME,mLeDevices[position].name)
+                intent.putExtra(GattAttributes.DEVICE_ADDRESS,mLeDevices[position].address)
+                if (isScanning){
+                    scanner?.stopScan(mLeScanCallback)
+                    isScanning=false
+                }
+                startActivity(intent)
 
 
             }
+
+
 
 
         }
@@ -308,11 +342,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    class ViewHolder(v:View):RecyclerView.ViewHolder(v){
+    class ViewHolder(v: View):RecyclerView.ViewHolder(v){
 
-        val txName:TextView=v.findViewById(R.id.device_name)
-        val txAddress:TextView=v.findViewById(R.id.device_address)
-        val txRssi:TextView=v.findViewById(R.id.device_rssi)
+        val txName=v.findViewById(R.id.device_name) as TextView
+        val txAddress=v.findViewById(R.id.device_address) as TextView
+        val txRssi=v.findViewById(R.id.device_rssi) as TextView
 
 
     }

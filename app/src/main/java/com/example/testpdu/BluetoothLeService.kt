@@ -12,18 +12,20 @@ import java.util.*
 class BluetoothLeService():Service() {
 
     private val TAG:String=BluetoothLeService::class.java.simpleName
-    private lateinit var manager:BluetoothManager
-    private lateinit var adapter:BluetoothAdapter
-    private lateinit var mAddress:String
+    private var manager:BluetoothManager?=null
+    private var adapter:BluetoothAdapter?=null
+    private var mAddress:String?=null
     private var gatt:BluetoothGatt? = null
 
     companion object{
-        val ACTION_GATT_CONNECTED = "com.example.bluetooth.le.ACTION_GATT_CONNECTED"
-        val ACTION_GATT_DISCONNECTED = "com.example.bluetooth.le.ACTION_GATT_DISCONNECTED"
-        val ACTION_GATT_SERVICES_DISCOVERED =
+        const val ACTION_GATT_CONNECTED = "com.example.bluetooth.le.ACTION_GATT_CONNECTED"
+        const val ACTION_GATT_DISCONNECTED = "com.example.bluetooth.le.ACTION_GATT_DISCONNECTED"
+        const val ACTION_GATT_SERVICES_DISCOVERED =
             "com.example.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED"
-        val ACTION_DATA_AVAILABLE = "com.example.bluetooth.le.ACTION_DATA_AVAILABLE"
-        val EXTRA_DATA = "com.example.bluetooth.le.EXTRA_DATA"
+        const val ACTION_DATA_AVAILABLE = "com.example.bluetooth.le.ACTION_DATA_AVAILABLE"
+        const val EXTRA_DATA = "com.example.bluetooth.le.EXTRA_DATA"
+
+        const val CHARACTERISTIC="com.example.bluetooth.le.characteristic"
     }
 
 
@@ -36,6 +38,11 @@ class BluetoothLeService():Service() {
         return mBinder
     }
 
+    override fun onUnbind(intent: Intent?): Boolean {
+        close()
+        return super.onUnbind(intent)
+    }
+
     fun initialize():Boolean{
         if (manager==null){
             manager=getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
@@ -44,7 +51,7 @@ class BluetoothLeService():Service() {
                 return false
             }
         }
-        adapter=manager.adapter
+        adapter=manager!!.adapter
         if (adapter==null){
             Log.e(TAG,"unable to obtain an adapter")
             return false
@@ -77,7 +84,7 @@ class BluetoothLeService():Service() {
             if (status==BluetoothGatt.GATT_SUCCESS){
                 broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED)
             }else{
-                Log.d(TAG," onServicesDsicovered received : $status")
+                Log.d(TAG," onServicesDiscovered received : $status")
             }
         }
 
@@ -112,7 +119,143 @@ class BluetoothLeService():Service() {
     private fun broadcastUpdate(action: String, characteristic: BluetoothGattCharacteristic){
         val intent=Intent(action)
 
+        when(characteristic.uuid.toString()){
 
+            GattAttributes.device_name->{
+                val data= characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mDeviceName)
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.appearance->{
+                val data=characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mAppearance)
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.peripheral_preferred_connection_parameters->{
+                val data=characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mPeripheralParameters)
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.device_id->{
+                val data=characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mDeviceId)
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.model_number_string->{
+                val data=characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mModelNumberString)
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.serial_number_string->{
+                val data=characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mSerialNumberString)
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.firmware_revision_string->{
+                val data=characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mFirmwareRevision)
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.hardware_revision_string->{
+                val data=characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mHardwareRevision)
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.software_revision_string->{
+                val data=characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mSoftwareRevision)
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.current->{
+                val data=characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mCurrent)
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.voltage->{
+                val data=characteristic.value
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.watt->{
+                val data=characteristic.value
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.power_factor->{
+                val data=characteristic.value
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.load->{
+                val data=characteristic.value
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.load_detected->{
+                val data=characteristic.value
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.activate_power->{
+                val data=characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mActivatePower)
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.set_time->{
+                val data=characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mSetTime)
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.download_request->{
+                val data=characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mDownloadRequest)
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.read_recorded_data->{
+                val data=characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mReadRecordedData)
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.nfc_tag_id->{
+                val data=characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mNfcTagId)
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.charging_latency->{
+                val data=characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mChargingLatency)
+                Log.d(TAG,String(data))
+            }
+            GattAttributes.hardware_status->{
+                val data=characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC, GattAttributes.mHardwareStatus)
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.software_status->{
+                val data=characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mSoftwareStatus)
+                Log.d(TAG, String(data))
+            }
+            GattAttributes.error_code->{
+                val data=characteristic.value
+                intent.putExtra(EXTRA_DATA, String(data))
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mErrorCode)
+            }
+        }
+        sendBroadcast(intent)
     }
 
     fun connect(address:String):Boolean{
@@ -120,16 +263,19 @@ class BluetoothLeService():Service() {
             return false
         }
         if (mAddress!=null&& address == mAddress &&gatt!=null){
+            Log.d(TAG,"trying to use an existing gatt for connection")
             return gatt!!.connect()
         }
 
-        val device=adapter.getRemoteDevice(address)
+        val device=adapter!!.getRemoteDevice(address)
         if (device==null){
             return false
         }
+        Log.d(TAG,"finally , we need to connect here ");
         gatt=device.connectGatt(this,false,mGattCallback)
         mAddress=address
 
+        Log.d(TAG,"$mAddress, connect")
         return true
     }
     fun disconnect(){
@@ -168,4 +314,10 @@ class BluetoothLeService():Service() {
         }
     }
 
+    fun getSupportedGattServices():List<BluetoothGattService>?{
+        if (gatt==null)
+            return null
+
+        return gatt!!.services
+    }
 }
