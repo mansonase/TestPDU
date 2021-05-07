@@ -289,7 +289,7 @@ class MainActivity : AppCompatActivity() {
 
             if (device.name==null)return
 
-            if (device.name.trim() != "F100")return
+            if (device.name.substring(0,4).trim()!="F100")return
 
             if (!mLeDevices.contains(device)){
                 mLeDevices.add(device)
