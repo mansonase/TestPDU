@@ -93,61 +93,7 @@
 
 
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/current_title"
-            app:layout_constraintTop_toBottomOf="@+id/peripheral_pcp_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/current_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            android:text="(0xAA11)\nCurrent"
-            android:onClick="onClick"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/current_content"
-            app:layout_constraintTop_toTopOf="@+id/current_title"
-            app:layout_constraintBottom_toBottomOf="@+id/current_title"
-            app:layout_constraintStart_toEndOf="@+id/current_title"
-            app:layout_constraintEnd_toStartOf="@+id/activate_power_title"
-            android:layout_marginStart="10dp"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="False"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/voltage_title"
-            app:layout_constraintTop_toBottomOf="@+id/current_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/voltage_content"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            android:layout_marginVertical="10dp"
-            android:gravity="center"
-            android:text="(0xAA12)\nVoltage"
-            android:onClick="onClick"/>
-
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/voltage_content"
-            app:layout_constraintTop_toTopOf="@+id/voltage_title"
-            app:layout_constraintBottom_toBottomOf="@+id/voltage_title"
-            app:layout_constraintStart_toEndOf="@+id/voltage_title"
-            app:layout_constraintEnd_toStartOf="@+id/set_time_title"
-            android:gravity="center"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="False"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -156,7 +102,7 @@
             app:layout_constraintTop_toBottomOf="@+id/voltage_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/watt_content"
-            android:layout_marginVertical="10dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintHorizontal_chainStyle="packed"
             android:gravity="center"
             android:text="(0xAA13)\nWatt"
@@ -257,26 +203,52 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/activate_power_title"
-            app:layout_constraintTop_toTopOf="@+id/current_title"
-            app:layout_constraintBottom_toBottomOf="@+id/current_title"
-            app:layout_constraintStart_toEndOf="@+id/current_content"
-            app:layout_constraintEnd_toStartOf="@+id/activate_power_content"
-            android:layout_marginStart="20dp"
+            android:id="@+id/power_on_title"
+            app:layout_constraintTop_toBottomOf="@+id/peripheral_pcp_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/power_on_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintHorizontal_chainStyle="packed"
             android:gravity="center"
-            android:text="(0xAA21)\nActivate\nPower"
+            android:text="(0xAA21)\nPower\non"
             android:onClick="onClick"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/activate_power_content"
-            app:layout_constraintTop_toTopOf="@+id/current_title"
-            app:layout_constraintBottom_toBottomOf="@+id/current_title"
-            app:layout_constraintStart_toEndOf="@+id/activate_power_title"
+            android:id="@+id/power_on_content"
+            app:layout_constraintTop_toTopOf="@+id/power_on_title"
+            app:layout_constraintBottom_toBottomOf="@+id/power_on_title"
+            app:layout_constraintStart_toEndOf="@+id/power_on_title"
+            app:layout_constraintEnd_toStartOf="@+id/power_off_title"
+            android:gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="False"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/power_off_title"
+            app:layout_constraintTop_toTopOf="@+id/power_on_title"
+            app:layout_constraintBottom_toBottomOf="@+id/power_on_title"
+            app:layout_constraintStart_toEndOf="@+id/power_on_content"
+            app:layout_constraintEnd_toStartOf="@+id/power_off_content"
+            android:gravity="center"
+            android:text="(0xAA21)\nPower\nOff"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/power_off_content"
+            app:layout_constraintTop_toTopOf="@+id/power_off_title"
+            app:layout_constraintBottom_toBottomOf="@+id/power_off_title"
+            app:layout_constraintStart_toEndOf="@+id/power_off_title"
             app:layout_constraintEnd_toEndOf="parent"
             android:gravity="center"
-            android:layout_marginStart="10dp"
+            android:layout_marginHorizontal="10dp"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:text="False"/>
@@ -286,11 +258,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/set_time_title"
-            app:layout_constraintTop_toTopOf="@+id/voltage_title"
-            app:layout_constraintBottom_toBottomOf="@+id/voltage_title"
-            app:layout_constraintStart_toEndOf="@+id/voltage_content"
+            app:layout_constraintTop_toBottomOf="@+id/power_on_title"
             app:layout_constraintEnd_toStartOf="@+id/set_time_content"
-            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="(0xAA22)\nSet Time"
             android:onClick="onClick"/>
@@ -299,12 +271,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/set_time_content"
-            app:layout_constraintTop_toTopOf="@+id/voltage_title"
-            app:layout_constraintBottom_toBottomOf="@+id/voltage_title"
+            app:layout_constraintTop_toTopOf="@+id/set_time_title"
+            app:layout_constraintBottom_toBottomOf="@+id/set_time_title"
             app:layout_constraintStart_toEndOf="@+id/set_time_title"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/get_time_title"
             android:gravity="center"
-            android:layout_marginStart="10dp"
+            android:layout_marginHorizontal="10dp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:text="False"/>
@@ -312,31 +284,140 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/download_request_title"
-            app:layout_constraintTop_toTopOf="@id/watt_title"
-            app:layout_constraintBottom_toBottomOf="@+id/watt_title"
-            app:layout_constraintStart_toEndOf="@id/watt_content"
-            app:layout_constraintEnd_toStartOf="@+id/download_request_content"
-            android:layout_marginStart="20dp"
+            android:id="@+id/get_time_title"
+            app:layout_constraintTop_toTopOf="@+id/set_time_title"
+            app:layout_constraintBottom_toBottomOf="@+id/set_time_title"
+            app:layout_constraintStart_toEndOf="@+id/set_time_content"
+            app:layout_constraintEnd_toStartOf="@+id/get_time_content"
             android:gravity="center"
-            android:visibility="gone"
-            android:text="(0xAA23)\nDownload\nRequest"
+            android:textColor="@color/black"
+            android:text="(0xAA22)\nGet time"
             android:onClick="onClick"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/download_request_content"
-            app:layout_constraintTop_toTopOf="@id/watt_title"
-            app:layout_constraintBottom_toBottomOf="@+id/watt_title"
-            app:layout_constraintStart_toEndOf="@+id/download_request_title"
+            android:id="@+id/get_time_content"
+            app:layout_constraintTop_toTopOf="@+id/get_time_title"
+            app:layout_constraintBottom_toBottomOf="@+id/get_time_title"
+            app:layout_constraintStart_toEndOf="@+id/get_time_title"
             app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="False"/>
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/current_title"
+            app:layout_constraintTop_toBottomOf="@+id/download_on_title"
+            app:layout_constraintEnd_toEndOf="@+id/set_time_title"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="(0xAA11)\nCurrent"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/current_content"
+            app:layout_constraintTop_toTopOf="@+id/current_title"
+            app:layout_constraintBottom_toBottomOf="@+id/current_title"
+            app:layout_constraintStart_toEndOf="@+id/current_title"
+
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="False"/>
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/download_on_title"
+            app:layout_constraintTop_toBottomOf="@+id/set_time_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/download_on_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:gravity="center"
+            android:text="(0xAA23)\nDownload\non"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/download_on_content"
+            app:layout_constraintTop_toTopOf="@id/download_on_title"
+            app:layout_constraintBottom_toBottomOf="@+id/download_on_title"
+            app:layout_constraintStart_toEndOf="@+id/download_on_title"
+            app:layout_constraintEnd_toStartOf="@+id/download_off_title"
+            android:gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="False"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/download_off_title"
+            app:layout_constraintTop_toTopOf="@+id/download_on_title"
+            app:layout_constraintBottom_toBottomOf="@+id/download_on_title"
+            app:layout_constraintStart_toEndOf="@+id/download_on_content"
+            app:layout_constraintEnd_toStartOf="@+id/download_off_content"
+            android:gravity="center"
+            android:text="(0xAA23)\nDownload\nOff"
+            android:onClick="onClick"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/download_off_content"
+            app:layout_constraintTop_toTopOf="@+id/download_off_title"
+            app:layout_constraintBottom_toBottomOf="@+id/download_off_title"
+            app:layout_constraintStart_toEndOf="@+id/download_off_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="False"/>
+
+
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/voltage_title"
+            app:layout_constraintTop_toBottomOf="@+id/current_title"
+            app:layout_constraintEnd_toEndOf="@+id/current_title"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="(0xAA12)\nVoltage"
+            android:onClick="onClick"/>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/voltage_content"
+            app:layout_constraintTop_toTopOf="@+id/voltage_title"
+            app:layout_constraintBottom_toBottomOf="@+id/voltage_title"
+            app:layout_constraintStart_toEndOf="@+id/voltage_title"
+
             android:gravity="center"
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:visibility="gone"
             android:text="False"/>
+
+
 
         <Button
             android:layout_width="wrap_content"
@@ -431,7 +512,8 @@
             android:gravity="center"
 
             android:layout_marginTop="40dp"
-            android:text="(0x2A23)\nDevice\nID"
+            android:layout_marginEnd="10dp"
+            android:text="(0x2A23)\nDevice ID"
             android:onClick="onClick"/>
 
 
@@ -445,6 +527,7 @@
             app:layout_constraintEnd_toStartOf="@+id/manufacturer_name_title"
             android:gravity="center"
             android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:text="False"/>

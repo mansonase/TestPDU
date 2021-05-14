@@ -43,9 +43,12 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
     private lateinit var tvPowerFactor:TextView
     private lateinit var tvLoad:TextView
     private lateinit var tvLoadDetected:TextView
-    private lateinit var tvActivatePower:TextView
+    private lateinit var tvPowerOn:TextView
+    private lateinit var tvPowerOff:TextView
     private lateinit var tvSetTime:TextView
-    private lateinit var tvDownloadRequest:TextView
+    private lateinit var tvGetTime:TextView
+    private lateinit var tvDownloadOn:TextView
+    private lateinit var tvDownloadOff:TextView
     private lateinit var tvReadRecordedData:TextView
     private lateinit var tvNfcTagId:TextView
     private lateinit var tvChargingLatency:TextView
@@ -78,9 +81,12 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
         tvPowerFactor=findViewById(R.id.power_factor_content)
         tvLoad=findViewById(R.id.load_content)
         tvLoadDetected=findViewById(R.id.load_detected_content)
-        tvActivatePower=findViewById(R.id.activate_power_content)
+        tvPowerOn=findViewById(R.id.power_on_content)
+        tvPowerOff=findViewById(R.id.power_off_content)
         tvSetTime=findViewById(R.id.set_time_content)
-        tvDownloadRequest=findViewById(R.id.download_request_content)
+        tvGetTime=findViewById(R.id.get_time_content)
+        tvDownloadOn=findViewById(R.id.download_on_content)
+        tvDownloadOff=findViewById(R.id.download_off_content)
         tvReadRecordedData=findViewById(R.id.recorded_data_content)
         tvNfcTagId=findViewById(R.id.nfc_tag_id_content)
         tvChargingLatency=findViewById(R.id.charging_latency_content)
@@ -270,21 +276,29 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
             GattAttributes.mLoadDetected->{
                 tvLoadDetected.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
             }
-            GattAttributes.mActivatePower->{
-                val result= intent.getStringExtra(BluetoothLeService.EXTRA_DATA)!!.toInt()
-                var text:String?=null
-                if (result==1){
-                    text="ON"
-                }else if (result==0){
-                    text="OFF"
-                }
-                tvActivatePower.text=text
+            GattAttributes.mPowerOn->{
+                tvPowerOn.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
+                tvPowerOff.text="False"
+            }
+            GattAttributes.mPowerOff->{
+                tvPowerOff.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
+                tvPowerOn.text="False"
             }
             GattAttributes.mSetTime -> {
                 tvSetTime.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
+                tvGetTime.text="False"
             }
-            GattAttributes.mDownloadRequest -> {
-                // TODO: 2021/4/26 only write?
+            GattAttributes.mGetTime->{
+                tvGetTime.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
+                tvSetTime.text="False"
+            }
+            GattAttributes.mDownloadOn->{
+                tvDownloadOn.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
+                tvDownloadOff.text="False"
+            }
+            GattAttributes.mDownloadOff->{
+                tvDownloadOff.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
+                tvDownloadOn.text="False"
             }
             GattAttributes.mReadRecordedData->{
                 tvReadRecordedData.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
@@ -378,22 +392,82 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
                     mBluetoothLeService?.setCharacteristicNotification(characteristic!!,true)
                 }
             }
-            R.id.activate_power_title->{
-                characteristic=(mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
-                    .getCharacteristic(UUID.fromString(GattAttributes.activate_power))
-                if (characteristic!=null){
-                    mBluetoothLeService?.readCharacteristic(characteristic!!)
-                }
-            }
-            R.id.set_time_title->{
-                characteristic=(mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
-                    .getCharacteristic(UUID.fromString(GattAttributes.set_time))
-                if (characteristic!=null){
-                    mBluetoothLeService?.readCharacteristic(characteristic!!)
-                }
-            }
-            R.id.download_request_title->{
+            R.id.power_on_title -> {
 
+                val byteArray= byteArrayOf((0x01).toByte())
+                characteristic =
+                    (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL) as BluetoothGattService)
+                        .getCharacteristic(UUID.fromString(GattAttributes.activate_power))
+                if (characteristic != null) {
+                    //mBluetoothLeService?.readCharacteristic(characteristic!!)
+                    mBluetoothLeService?.writeCharacteristic(characteristic!!,byteArray)
+                }
+                Log.d(TAG," power on")
+            }
+            R.id.power_off_title -> {
+
+                val byteArray= byteArrayOf(0x00)
+                characteristic=
+                    (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL) as BluetoothGattService)
+                        .getCharacteristic(UUID.fromString(GattAttributes.activate_power))
+                if (characteristic!=null){
+                    mBluetoothLeService?.writeCharacteristic(characteristic!!,byteArray)
+                }
+                Log.d(TAG," power off")
+            }
+            R.id.set_time_title -> {
+
+                val epochTime=Calendar.getInstance().timeInMillis/1000
+                val timeIn16=epochTime.toString(16)
+
+                Log.d(TAG,"time is : $timeIn16")
+
+                val hex1=timeIn16[6].toString()+timeIn16[7].toString()
+                val hex2=timeIn16[4].toString()+timeIn16[5].toString()
+                val hex3=timeIn16[2].toString()+timeIn16[3].toString()
+                val hex4=timeIn16[0].toString()+timeIn16[1].toString()
+
+                Log.d(TAG," $hex1,$hex2,$hex3,$hex4")
+
+                val byteArray= byteArrayOf(hex1.toInt(16).toByte(),hex2.toInt(16).toByte(),hex3.toInt(16).toByte(),hex4.toInt(16).toByte())
+
+                characteristic=
+                    (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL) as BluetoothGattService)
+                        .getCharacteristic(UUID.fromString(GattAttributes.set_time))
+                if (characteristic!=null){
+                    mBluetoothLeService?.writeCharacteristic(characteristic!!,byteArray)
+                }
+
+            }
+            R.id.get_time_title -> {
+                characteristic =
+                    (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL) as BluetoothGattService)
+                        .getCharacteristic(UUID.fromString(GattAttributes.set_time))
+                if (characteristic != null) {
+                    mBluetoothLeService?.readCharacteristic(characteristic!!)
+                }
+            }
+            R.id.download_on_title -> {
+
+                val byteArray= byteArrayOf(0x01)
+                characteristic=
+                    (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL) as BluetoothGattService)
+                        .getCharacteristic(UUID.fromString(GattAttributes.download_request))
+
+                if (characteristic!=null){
+                    mBluetoothLeService?.writeCharacteristic(characteristic!!,byteArray)
+                }
+
+            }
+            R.id.download_off_title->{
+                val byteArray= byteArrayOf(0x00)
+                characteristic=
+                    (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL) as BluetoothGattService)
+                        .getCharacteristic(UUID.fromString(GattAttributes.download_request))
+
+                if (characteristic!=null){
+                    mBluetoothLeService?.writeCharacteristic(characteristic!!,byteArray)
+                }
             }
             R.id.recorded_data_title->{
                 characteristic=(mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)

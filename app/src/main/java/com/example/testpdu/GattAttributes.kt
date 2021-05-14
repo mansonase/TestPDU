@@ -71,9 +71,14 @@ class GattAttributes {
         const val mLoad="load"
         const val mLoadDetected="load_detected"
 
-        const val mActivatePower="activate_power"
+        const val mPowerOn="power_on"
+        const val mPowerOff="power_off"
+
         const val mSetTime="set_time"
-        const val mDownloadRequest= "download_request"
+        const val mGetTime="get_time"
+        const val mDownloadOn="download_on"
+        const val mDownloadOff="download_off"
+
         const val mReadRecordedData="read_recorded_data"
         const val mNfcTagId="nfc_tag_id"
         const val mChargingLatency="charging_latency"
