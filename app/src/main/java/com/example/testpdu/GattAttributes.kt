@@ -77,7 +77,6 @@ class GattAttributes {
         const val mSetTime="set_time"
         const val mGetTime="get_time"
         const val mDownloadOn="download_on"
-        const val mDownloadOff="download_off"
 
         const val mReadRecordedData="read_recorded_data"
         const val mNfcTagId="nfc_tag_id"

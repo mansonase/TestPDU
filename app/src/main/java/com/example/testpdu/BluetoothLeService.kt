@@ -2,18 +2,15 @@ package com.example.testpdu
 
 import android.app.Service
 import android.bluetooth.*
-import android.bluetooth.BluetoothGattCharacteristic.FORMAT_UINT16
 import android.content.Intent
 import android.os.Binder
-import android.os.Handler
 import android.os.IBinder
-import android.os.Looper
 import android.util.Log
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.experimental.and
+import kotlin.collections.ArrayList
 
 
 class BluetoothLeService():Service() {
@@ -218,17 +215,19 @@ class BluetoothLeService():Service() {
                 Log.d(TAG, "$data, size is $size")
             }
             GattAttributes.device_id->{
-                var data="["
-                val size=characteristic.value.size
+
+                val size=8
+                val array= ByteArray(size)
+
                 for (i in 0 until size){
-
-                    data+=characteristic.value[i].toString()
-
+                    array[i]=characteristic.value[(size-1)-i]
                 }
-                data += "]"
+
+                var data="0x "+array.toHexString()
+
                 intent.putExtra(EXTRA_DATA, data)
                 intent.putExtra(CHARACTERISTIC,GattAttributes.mDeviceId)
-                Log.d(TAG, "$data, size is $size")
+                Log.d(TAG, data)
             }
             GattAttributes.manufacturer_name_string->{
                 val data=characteristic.getStringValue(0)
@@ -286,10 +285,9 @@ class BluetoothLeService():Service() {
 
                 //Log.d(TAG,(characteristic.value[0].toString(16))+","+(characteristic.value[1].toString(16))+","+(characteristic.value[2].toString(16)))
                 Log.d(TAG,(characteristic.value[0].toInt()and (0xFF)).toString(16)+","+(characteristic.value[1].toInt()and (0xFF)).toString(16)+","+(characteristic.value[2].toInt()and (0XFF)).toString(16))
-                val data = getNoMoreThanTwoDigits((
-                                (characteristic.value[0].toInt() and (0xFF)).toDouble()+
-                                (characteristic.value[1].toInt() and (0xFF)).toDouble()*256+
-                                (characteristic.value[2].toInt() and (0xFF)).toDouble()*65536)/1000)
+                val data = (((characteristic.value[0].toInt() and (0xFF)).toDouble()+
+                             (characteristic.value[1].toInt() and (0xFF)).toDouble()*256+
+                             (characteristic.value[2].toInt() and (0xFF)).toDouble()*65536)/1000).toString()
 
                 Log.d(TAG, "$data, voltage")
 
@@ -299,10 +297,9 @@ class BluetoothLeService():Service() {
             }
             GattAttributes.watt->{
 
-                val data = getNoMoreThanTwoDigits ((
-                                        (characteristic.value[0].toInt() and (0xFF)).toDouble()+
-                                        (characteristic.value[1].toInt() and (0xFF)).toDouble()*256+
-                                        (characteristic.value[2].toInt() and (0xFF)).toDouble()*65536)/1000)
+                val data = (((characteristic.value[0].toInt() and (0xFF)).toDouble()+
+                             (characteristic.value[1].toInt() and (0xFF)).toDouble()*256+
+                             (characteristic.value[2].toInt() and (0xFF)).toDouble()*65536)/1000).toString()
 
                 Log.d(TAG, "$data, watt")
                 intent.putExtra(EXTRA_DATA, data)
@@ -363,43 +360,85 @@ class BluetoothLeService():Service() {
 
                     intent.putExtra(EXTRA_DATA,"On")
                     intent.putExtra(CHARACTERISTIC,GattAttributes.mDownloadOn)
-                }else if (data==0){
-                    intent.putExtra(EXTRA_DATA,"Off")
-                    intent.putExtra(CHARACTERISTIC,GattAttributes.mDownloadOff)
                 }
                 Log.d(TAG," data is $data")
             }
             GattAttributes.read_recorded_data -> {
 
-                var data = "["
-                val size = characteristic.value.size
-                for (i in 0 until size) {
-                    data += if (i == size - 1) {
-                        characteristic.value[i].toString()
-                    } else {
-                        characteristic.value[i].toString() + ","
-                    }
-                }
-                data += "]"
-                intent.putExtra(EXTRA_DATA, data)
+                val array=ArrayList<String>()
+
+                val startTimeData=getFlatDate((characteristic.value[0].toLong() and (0xFF))*256*65536+
+                                                       (characteristic.value[1].toLong() and (0xFF))*256*256+
+                                                       (characteristic.value[2].toLong() and (0xFF))*256+
+                                                       (characteristic.value[3].toLong() and (0xFF)))
+
+                val endTimeData=getFlatDate((characteristic.value[4].toLong() and (0xFF))*256*65536+
+                                                     (characteristic.value[5].toLong() and (0xFF))*256*256+
+                                                     (characteristic.value[6].toLong() and (0xFF))*256+
+                                                     (characteristic.value[7].toLong() and (0xFF)))
+
+                val currentData=(((characteristic.value[8].toLong() and (0xFF))*256*256+
+                                  (characteristic.value[9].toLong() and (0xFF))*256+
+                                  (characteristic.value[10].toLong() and (0xFF))).toFloat()/1000f).toString()
+
+                val voltageData=(((characteristic.value[11].toLong() and (0xFF))*256*256+
+                                  (characteristic.value[12].toLong() and (0xFF))*256+
+                                  (characteristic.value[13].toLong() and (0xFF))).toFloat()/1000f).toString()
+
+                val powerData=(((characteristic.value[14].toLong() and (0xFF))*256*256+
+                                (characteristic.value[15].toLong() and (0xFF))*256+
+                                (characteristic.value[16].toLong() and (0xFF))).toFloat()/1000f).toString()
+
+                val powerFactorData=(((characteristic.value[17].toLong() and (0xFF))*256+
+                                      (characteristic.value[18].toLong() and (0xFF))).toFloat()/10_000f).toString()
+
+                val consumptionData=(((characteristic.value[19].toLong() and (0xFF))*256*256+
+                                      (characteristic.value[20].toLong() and (0xFF))*256+
+                                      (characteristic.value[21].toLong() and (0xFF))).toFloat()/1000f).toString()
+
+                val noneData=((characteristic.value[22].toLong() and (0xFF))*256+
+                              (characteristic.value[23].toLong() and (0xFF))).toString()
+
+                array.add(startTimeData)
+                array.add(endTimeData)
+                array.add(currentData)
+                array.add(voltageData)
+                array.add(powerData)
+                array.add(powerFactorData)
+                array.add(consumptionData)
+                array.add(noneData)
+
+                intent.putStringArrayListExtra(EXTRA_DATA,array)
+                //intent.putExtra(EXTRA_DATA, data)
                 intent.putExtra(CHARACTERISTIC, GattAttributes.mReadRecordedData)
-                Log.d(TAG, "$data, size is $size")
+
+                var data=characteristic.value.toHexString()
+
+                Log.d(TAG,"${characteristic.value.size}")
+                Log.d(TAG,data)
+                Log.d(TAG, "$startTimeData, $endTimeData, $currentData, $voltageData, $powerData, $powerFactorData, $consumptionData, $noneData")
             }
             GattAttributes.nfc_tag_id->{
-                var data=""
-                val size=characteristic.value.size
+
+                val size=8
+                val array=ByteArray(size)
+
                 for (i in 0 until size){
-                    data+= (characteristic.value[i].toInt() and (0xFF)).toChar()
+                    array[i]=characteristic.value[(size-1)-i]
                 }
+
+                val data="0x "+array.toHexString()
+
                 intent.putExtra(EXTRA_DATA, data)
                 intent.putExtra(CHARACTERISTIC,GattAttributes.mNfcTagId)
-                Log.d(TAG, "$data, size is $size")
+
+                Log.d(TAG,"new $data")
             }
             GattAttributes.charging_latency->{
                 var data=""
                 val size=characteristic.value.size
                 for (i in 0 until size){
-                    data+= (characteristic.value[i].toInt() and (0xFF)).toChar()
+                    data+= (characteristic.value[i].toInt() and (0xFF)).toString()
                 }
                 intent.putExtra(EXTRA_DATA, data)
                 intent.putExtra(CHARACTERISTIC,GattAttributes.mChargingLatency)
@@ -483,7 +522,7 @@ class BluetoothLeService():Service() {
 
     }
 
-    fun close(){
+    private fun close(){
         if (gatt==null){
             return
         }
@@ -541,10 +580,30 @@ class BluetoothLeService():Service() {
     }
 
     private fun getDate(seconds :Long):String{
-        val formatter=SimpleDateFormat("dd/MM/yyyy\nHH:mm:ss")
+        val formatter=SimpleDateFormat("yyyyMMdd\nHH:mm:ss")
 
         val calendar=Calendar.getInstance()
         calendar.timeInMillis=seconds*1000
         return formatter.format(calendar.time)
     }
+
+    private fun getFlatDate(seconds: Long):String{
+        val format=SimpleDateFormat("yyyyMMdd HH:mm:ss")
+
+        val calendar=Calendar.getInstance()
+        calendar.timeInMillis=seconds*1000
+        return format.format(calendar.time)
+    }
+
+    private fun getTwoDigits(number: Int):String{
+        val format=DecimalFormat("00")
+        return format.format(number)
+    }
+
+    @JvmOverloads
+    fun ByteArray.toHexString(separator:CharSequence=" ")=
+        this.joinToString(separator) {
+            String.format("%02X",it)
+        }
+
 }

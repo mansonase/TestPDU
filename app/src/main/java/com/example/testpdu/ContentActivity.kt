@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ContentActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -48,15 +49,20 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
     private lateinit var tvSetTime:TextView
     private lateinit var tvGetTime:TextView
     private lateinit var tvDownloadOn:TextView
-    private lateinit var tvDownloadOff:TextView
-    private lateinit var tvReadRecordedData:TextView
+    private lateinit var tvRDStartTime:TextView
+    private lateinit var tvRDEndTime:TextView
+    private lateinit var tvRDCurrent:TextView
+    private lateinit var tvRDVoltage:TextView
+    private lateinit var tvRDPower:TextView
+    private lateinit var tvRDPowerFactor:TextView
+    private lateinit var tvRDConsumption:TextView
+    private lateinit var tvRDNone:TextView
     private lateinit var tvNfcTagId:TextView
     private lateinit var tvChargingLatency:TextView
     private lateinit var tvHardwareStatus:TextView
     private lateinit var tvSoftwareStatus:TextView
     private lateinit var tvErrorCode:TextView
 
-    private lateinit var tvConnection:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,15 +92,22 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
         tvSetTime=findViewById(R.id.set_time_content)
         tvGetTime=findViewById(R.id.get_time_content)
         tvDownloadOn=findViewById(R.id.download_on_content)
-        tvDownloadOff=findViewById(R.id.download_off_content)
-        tvReadRecordedData=findViewById(R.id.recorded_data_content)
+
+        tvRDStartTime=findViewById(R.id.recorded_data_start_time_content)
+        tvRDEndTime=findViewById(R.id.recorded_data_end_time_content)
+        tvRDCurrent=findViewById(R.id.recorded_data_current_content)
+        tvRDVoltage=findViewById(R.id.recorded_data_voltage_content)
+        tvRDPower=findViewById(R.id.recorded_data_power_content)
+        tvRDPowerFactor=findViewById(R.id.recorded_data_power_factor_content)
+        tvRDConsumption=findViewById(R.id.recorded_data_consumption_content)
+        tvRDNone=findViewById(R.id.recorded_data_none_content)
+
         tvNfcTagId=findViewById(R.id.nfc_tag_id_content)
         tvChargingLatency=findViewById(R.id.charging_latency_content)
         tvHardwareStatus=findViewById(R.id.hardware_status_content)
         tvSoftwareStatus=findViewById(R.id.software_status_content)
         tvErrorCode=findViewById(R.id.error_code_content)
 
-        tvConnection=findViewById(R.id.show_connect_status)
 
 
         actionBar?.title=mDeviceName
@@ -159,13 +172,6 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun updateConnectionState(resourceID:Int){
-
-        runOnUiThread {
-            tvConnection.text = getString(resourceID)
-        }
-
-    }
 
     private val mServiceConnection= object : ServiceConnection {
         override fun onServiceConnected(componentName: ComponentName, service: IBinder?) {
@@ -194,7 +200,6 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
                 Log.d(TAG,"hihihi, connected")
             }else if (BluetoothLeService.ACTION_GATT_DISCONNECTED==action){
                 isConnected=false
-                updateConnectionState(R.id.menu_connect)
                 invalidateOptionsMenu()
             }else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED==action){
 
@@ -202,7 +207,6 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
                     mGattServiceList=null
                 }else {
                     isConnected=true
-                    updateConnectionState(R.id.menu_disconnect)
                     invalidateOptionsMenu()
                 }
                 Log.d(TAG,"in contentActivity and we got discovered")
@@ -294,20 +298,38 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
             }
             GattAttributes.mDownloadOn->{
                 tvDownloadOn.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
-                tvDownloadOff.text="False"
             }
-            GattAttributes.mDownloadOff->{
-                tvDownloadOff.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
-                tvDownloadOn.text="False"
-            }
-            GattAttributes.mReadRecordedData->{
-                tvReadRecordedData.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
+            GattAttributes.mReadRecordedData -> {
+                
+                val array=intent.getStringArrayListExtra(BluetoothLeService.EXTRA_DATA)
+                if (array != null) {
+                    tvRDStartTime.text=array.get(0)
+                    tvRDEndTime.text=array.get(1)
+                    tvRDCurrent.text=array.get(2)
+                    tvRDVoltage.text=array.get(3)
+                    tvRDPower.text=array.get(4)
+                    tvRDPowerFactor.text=array.get(5)
+                    tvRDConsumption.text=array.get(6)
+                    tvRDNone.text=array.get(7)
+                }
             }
             GattAttributes.mNfcTagId->{
                 tvNfcTagId.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
             }
             GattAttributes.mChargingLatency -> {
-                // TODO: 2021/4/26 write?
+
+                val hours=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
+
+                when(hours){
+
+                    "0","1"->{
+                        tvChargingLatency.text=("$hours hour")
+                    }
+                    else->{
+                        tvChargingLatency.text=("$hours hours")
+                    }
+
+                }
             }
             GattAttributes.mHardwareStatus->{
                 tvHardwareStatus.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
@@ -459,17 +481,7 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
                 }
 
             }
-            R.id.download_off_title->{
-                val byteArray= byteArrayOf(0x00)
-                characteristic=
-                    (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL) as BluetoothGattService)
-                        .getCharacteristic(UUID.fromString(GattAttributes.download_request))
-
-                if (characteristic!=null){
-                    mBluetoothLeService?.writeCharacteristic(characteristic!!,byteArray)
-                }
-            }
-            R.id.recorded_data_title->{
+            R.id.recorded_data_button->{
                 characteristic=(mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
                     .getCharacteristic(UUID.fromString(GattAttributes.read_recorded_data))
                 if (characteristic!=null){
@@ -483,8 +495,65 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
                     mBluetoothLeService?.readCharacteristic(characteristic!!)
                 }
             }
-            R.id.charging_latency_title->{
+            R.id.charging_latency_0->{
+                val byteArray= byteArrayOf(0x00)
+                characteristic=
+                    (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
+                        .getCharacteristic(UUID.fromString(GattAttributes.charging_latency))
 
+                if (characteristic!=null){
+                    mBluetoothLeService?.writeCharacteristic(characteristic!!,byteArray)
+                }
+            }
+            R.id.charging_latency_1->{
+                val byteArray= byteArrayOf(0x01)
+                characteristic=
+                    (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
+                        .getCharacteristic(UUID.fromString(GattAttributes.charging_latency))
+
+                if (characteristic!=null){
+                    mBluetoothLeService?.writeCharacteristic(characteristic!!,byteArray)
+                }
+            }
+            R.id.charging_latency_2->{
+                val byteArray= byteArrayOf(0x02)
+                characteristic=
+                    (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
+                        .getCharacteristic(UUID.fromString(GattAttributes.charging_latency))
+
+                if (characteristic!=null){
+                    mBluetoothLeService?.writeCharacteristic(characteristic!!,byteArray)
+                }
+            }
+            R.id.charging_latency_3->{
+                val byteArray= byteArrayOf(0x03)
+                characteristic=
+                    (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
+                        .getCharacteristic(UUID.fromString(GattAttributes.charging_latency))
+
+                if (characteristic!=null){
+                    mBluetoothLeService?.writeCharacteristic(characteristic!!,byteArray)
+                }
+            }
+            R.id.charging_latency_4->{
+                val byteArray= byteArrayOf(0x04)
+                characteristic=
+                    (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
+                        .getCharacteristic(UUID.fromString(GattAttributes.charging_latency))
+
+                if (characteristic!=null){
+                    mBluetoothLeService?.writeCharacteristic(characteristic!!,byteArray)
+                }
+            }
+            R.id.charging_latency_5->{
+                val byteArray= byteArrayOf(0x05)
+                characteristic=
+                    (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
+                        .getCharacteristic(UUID.fromString(GattAttributes.charging_latency))
+
+                if (characteristic!=null){
+                    mBluetoothLeService?.writeCharacteristic(characteristic!!,byteArray)
+                }
             }
             R.id.device_id_title->{
                 characteristic=(mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_INFORMATION)as BluetoothGattService)
