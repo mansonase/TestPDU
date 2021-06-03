@@ -442,12 +442,13 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
                 val epochTime=Calendar.getInstance().timeInMillis/1000
                 val timeIn16=epochTime.toString(16)
 
+                Log.d(TAG,"real time is $epochTime")
                 Log.d(TAG,"time is : $timeIn16")
 
-                val hex1=timeIn16[6].toString()+timeIn16[7].toString()
-                val hex2=timeIn16[4].toString()+timeIn16[5].toString()
-                val hex3=timeIn16[2].toString()+timeIn16[3].toString()
-                val hex4=timeIn16[0].toString()+timeIn16[1].toString()
+                val hex1=timeIn16[0].toString()+timeIn16[1].toString()
+                val hex2=timeIn16[2].toString()+timeIn16[3].toString()
+                val hex3=timeIn16[4].toString()+timeIn16[5].toString()
+                val hex4=timeIn16[6].toString()+timeIn16[7].toString()
 
                 Log.d(TAG," $hex1,$hex2,$hex3,$hex4")
 
