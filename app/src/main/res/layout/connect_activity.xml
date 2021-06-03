@@ -74,7 +74,7 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="(0x2a04)\nPeripheral Preferred\nConnection Parameters"
+            android:text="(0x2a04)\nPeripheral\nParameters"
             android:onClick="onClick"/>
 
         <TextView

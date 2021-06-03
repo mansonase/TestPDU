@@ -161,10 +161,10 @@ class BluetoothLeService():Service() {
         val intent=Intent(action)
 
 
-        val data = ((characteristic.value[0].toLong() and (0xFF))+
-                    (characteristic.value[1].toLong() and (0xFF))*256+
-                    (characteristic.value[2].toLong() and (0xFF))*65536+
-                    (characteristic.value[3].toLong() and (0xFF))*256*65536)
+        val data = ((characteristic.value[0].toLong() and (0xFF))*256*65536+
+                    (characteristic.value[1].toLong() and (0xFF))*256*256+
+                    (characteristic.value[2].toLong() and (0xFF))*256+
+                    (characteristic.value[3].toLong() and (0xFF)))
 
         val time=getDate(data)
         intent.putExtra(EXTRA_DATA, time)
@@ -184,46 +184,23 @@ class BluetoothLeService():Service() {
                 intent.putExtra(CHARACTERISTIC,GattAttributes.mDeviceName)
             }
             GattAttributes.appearance->{
-                var data="["
-                val size=characteristic.value.size
-                for (i in 0 until size){
-                    data += if (i==size-1) {
-                        characteristic.value[i].toString()
-                    }else{
-                        characteristic.value[i].toString() + ","
-                    }
-                }
-                data += "]"
+                var data="0x "+characteristic.value.toHexString()
+
                 intent.putExtra(EXTRA_DATA, data)
                 intent.putExtra(CHARACTERISTIC,GattAttributes.mAppearance)
-                Log.d(TAG, "$data, and size is $size")
+                Log.d(TAG, data)
             }
             GattAttributes.peripheral_preferred_connection_parameters->{
 //16,0,60,0,0,0,-112,1
-                var data="["
-                val size=characteristic.value.size
-                for (i in 0 until size){
-                    data += if (i==size-1) {
-                        characteristic.value[i].toString()
-                    }else{
-                        characteristic.value[i].toString() + ","
-                    }
-                }
-                data += "]"
+                val data="0x "+characteristic.value.toHexString()
+
                 intent.putExtra(EXTRA_DATA, data)
                 intent.putExtra(CHARACTERISTIC,GattAttributes.mPeripheralParameters)
-                Log.d(TAG, "$data, size is $size")
+                Log.d(TAG, data)
             }
             GattAttributes.device_id->{
 
-                val size=8
-                val array= ByteArray(size)
-
-                for (i in 0 until size){
-                    array[i]=characteristic.value[(size-1)-i]
-                }
-
-                var data="0x "+array.toHexString()
+                var data="0x "+characteristic.value.toHexString()
 
                 intent.putExtra(EXTRA_DATA, data)
                 intent.putExtra(CHARACTERISTIC,GattAttributes.mDeviceId)
@@ -273,9 +250,9 @@ class BluetoothLeService():Service() {
             }
             GattAttributes.current->{
 
-                val data =  ((characteristic.value[0].toInt() and (0xFF))+
+                val data =  ((characteristic.value[0].toInt() and (0xFF))*256*256+
                              (characteristic.value[1].toInt() and (0xFF))*256+
-                             (characteristic.value[2].toInt() and (0xFF))*65536).toString()
+                             (characteristic.value[2].toInt() and (0xFF))).toString()
 
                 intent.putExtra(EXTRA_DATA, data)
                 intent.putExtra(CHARACTERISTIC,GattAttributes.mCurrent)
@@ -284,10 +261,10 @@ class BluetoothLeService():Service() {
             GattAttributes.voltage->{
 
                 //Log.d(TAG,(characteristic.value[0].toString(16))+","+(characteristic.value[1].toString(16))+","+(characteristic.value[2].toString(16)))
-                Log.d(TAG,(characteristic.value[0].toInt()and (0xFF)).toString(16)+","+(characteristic.value[1].toInt()and (0xFF)).toString(16)+","+(characteristic.value[2].toInt()and (0XFF)).toString(16))
-                val data = (((characteristic.value[0].toInt() and (0xFF)).toDouble()+
+                //Log.d(TAG,(characteristic.value[0].toInt()and (0xFF)).toString(16)+","+(characteristic.value[1].toInt()and (0xFF)).toString(16)+","+(characteristic.value[2].toInt()and (0XFF)).toString(16))
+                val data = (((characteristic.value[0].toInt() and (0xFF)).toDouble()*256*256+
                              (characteristic.value[1].toInt() and (0xFF)).toDouble()*256+
-                             (characteristic.value[2].toInt() and (0xFF)).toDouble()*65536)/1000).toString()
+                             (characteristic.value[2].toInt() and (0xFF)).toDouble())/1000).toString()
 
                 Log.d(TAG, "$data, voltage")
 
@@ -297,24 +274,26 @@ class BluetoothLeService():Service() {
             }
             GattAttributes.watt->{
 
-                val data = (((characteristic.value[0].toInt() and (0xFF)).toDouble()+
+                val data = (((characteristic.value[0].toInt() and (0xFF)).toDouble()*256*256+
                              (characteristic.value[1].toInt() and (0xFF)).toDouble()*256+
-                             (characteristic.value[2].toInt() and (0xFF)).toDouble()*65536)/1000).toString()
+                             (characteristic.value[2].toInt() and (0xFF)).toDouble())/1000).toString()
 
                 Log.d(TAG, "$data, watt")
                 intent.putExtra(EXTRA_DATA, data)
                 intent.putExtra(CHARACTERISTIC,GattAttributes.mWatt)
             }
             GattAttributes.power_factor->{
-                val data = (((characteristic.value[0].toInt() and (0xFF)).toDouble()+
-                             (characteristic.value[1].toInt() and (0xFF)).toDouble()*256)/10_000).toString()
+                val data = (((characteristic.value[0].toInt() and (0xFF)).toDouble()*256+
+                             (characteristic.value[1].toInt() and (0xFF)).toDouble())/10_000).toString()
 
                 Log.d(TAG, "$data, power factor")
                 intent.putExtra(EXTRA_DATA, data)
                 intent.putExtra(CHARACTERISTIC,GattAttributes.mPowerFactor)
             }
             GattAttributes.load->{
-                val data=(characteristic.value[0].toInt() and (0xFF)).toString()
+                val data=((characteristic.value[0].toInt() and (0xFF)).toDouble()*256*256+
+                          (characteristic.value[1].toInt() and (0xFF)).toDouble()*256+
+                          (characteristic.value[2].toInt() and (0xFF)).toDouble()).toString()
                 Log.d(TAG, "$data, load")
                 intent.putExtra(EXTRA_DATA, data)
                 intent.putExtra(CHARACTERISTIC,GattAttributes.mLoad)
@@ -342,10 +321,10 @@ class BluetoothLeService():Service() {
 
             }
             GattAttributes.set_time->{
-                val data = ((characteristic.value[0].toLong() and (0xFF))+
-                            (characteristic.value[1].toLong() and (0xFF))*256+
-                            (characteristic.value[2].toLong() and (0xFF))*65536+
-                            (characteristic.value[3].toLong() and (0xFF))*256*65536)
+                val data = ((characteristic.value[0].toLong() and (0xFF))*256*65536+
+                            (characteristic.value[1].toLong() and (0xFF))*256*256+
+                            (characteristic.value[2].toLong() and (0xFF))*256+
+                            (characteristic.value[3].toLong() and (0xFF)))
 
                 val time=getDate(data)
                 intent.putExtra(EXTRA_DATA, time)
@@ -409,7 +388,7 @@ class BluetoothLeService():Service() {
                 array.add(noneData)
 
                 intent.putStringArrayListExtra(EXTRA_DATA,array)
-                //intent.putExtra(EXTRA_DATA, data)
+
                 intent.putExtra(CHARACTERISTIC, GattAttributes.mReadRecordedData)
 
                 var data=characteristic.value.toHexString()
@@ -420,14 +399,7 @@ class BluetoothLeService():Service() {
             }
             GattAttributes.nfc_tag_id->{
 
-                val size=8
-                val array=ByteArray(size)
-
-                for (i in 0 until size){
-                    array[i]=characteristic.value[(size-1)-i]
-                }
-
-                val data="0x "+array.toHexString()
+                val data="0x "+characteristic.value.toHexString()
 
                 intent.putExtra(EXTRA_DATA, data)
                 intent.putExtra(CHARACTERISTIC,GattAttributes.mNfcTagId)
@@ -445,49 +417,25 @@ class BluetoothLeService():Service() {
                 Log.d(TAG, "$data, size is $size")
             }
             GattAttributes.hardware_status->{
-                var data="["
-                val size=characteristic.value.size
-                for (i in 0 until size){
-                    data += if (i==size-1) {
-                        (characteristic.value[i].toInt() and (0xFF)).toString()
-                    }else{
-                        (characteristic.value[i].toInt() and (0xFF)).toString() + ","
-                    }
-                }
-                data += "]"
+                var data="0x "+characteristic.value.toHexString()
+
                 intent.putExtra(EXTRA_DATA, data)
                 intent.putExtra(CHARACTERISTIC,GattAttributes.mHardwareStatus)
-                Log.d(TAG, "$data, size is $size")
+                Log.d(TAG, data)
             }
             GattAttributes.software_status->{
-                var data="["
-                val size=characteristic.value.size
-                for (i in 0 until size){
-                    data += if (i==size-1) {
-                        (characteristic.value[i].toInt() and (0xFF)).toString()
-                    }else{
-                        (characteristic.value[i].toInt() and (0xFF)).toString() + ","
-                    }
-                }
-                data += "]"
+                var data="0x "+characteristic.value.toHexString()
+
                 intent.putExtra(EXTRA_DATA, data)
                 intent.putExtra(CHARACTERISTIC,GattAttributes.mSoftwareStatus)
-                Log.d(TAG, "$data, size is $size")
+                Log.d(TAG, data)
             }
             GattAttributes.error_code->{
-                var data="["
-                val size=characteristic.value.size
-                for (i in 0 until size){
-                    data += if (i==size-1) {
-                        (characteristic.value[i].toInt() and (0xFF)).toString()
-                    }else{
-                        (characteristic.value[i].toInt() and (0xFF)).toString() + ","
-                    }
-                }
-                data += "]"
+                var data="0x "+characteristic.value.toHexString()
+
                 intent.putExtra(EXTRA_DATA, data)
                 intent.putExtra(CHARACTERISTIC,GattAttributes.mErrorCode)
-                Log.d(TAG, "$data, size is $size")
+                Log.d(TAG, data)
             }
         }
         sendBroadcast(intent)
