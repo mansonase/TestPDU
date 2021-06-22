@@ -924,109 +924,110 @@
             android:layout_marginBottom="30dp"
             android:background="@drawable/charginglagencyborder">
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/charging_latency_title"
+                android:id="@+id/charging_latency_read_title"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/charging_latency_content"
+                app:layout_constraintEnd_toStartOf="@+id/charging_latency_read_content"
                 app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintVertical_chainStyle="packed"
                 android:layout_marginTop="20dp"
-
                 android:text="(0xAA26) Charging Latency : "
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textColor="@color/black"
+                android:onClick="onClick"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/charging_latency_content"
-                app:layout_constraintTop_toTopOf="@id/charging_latency_title"
-                app:layout_constraintStart_toEndOf="@+id/charging_latency_title"
+                android:id="@+id/charging_latency_read_content"
+                app:layout_constraintTop_toTopOf="@+id/charging_latency_read_title"
+                app:layout_constraintBottom_toBottomOf="@+id/charging_latency_read_title"
+                app:layout_constraintStart_toEndOf="@+id/charging_latency_read_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:gravity="center"
-                android:textColor="@color/black"
+                android:text="false"
                 android:layout_marginStart="10dp"
-                android:text="false"/>
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/charging_latency_read_title"
+                app:layout_constraintBottom_toTopOf="@+id/charging_latency_plus"
+                android:layout_marginHorizontal="10dp"/>
 
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/charging_latency_0"
-                app:layout_constraintTop_toBottomOf="@+id/charging_latency_title"
+                android:id="@+id/charging_latency_plus"
+                app:layout_constraintTop_toBottomOf="@+id/charging_latency_read_title"
+                app:layout_constraintBottom_toTopOf="@+id/charging_latency_send_title"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/charging_latency_1"
+                app:layout_constraintEnd_toStartOf="@+id/charging_latency_show_number"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 android:layout_marginTop="20dp"
                 android:textColor="@color/black"
-                android:text="0"
+                android:text="+"
                 android:onClick="onClick"/>
-            <Button
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/charging_latency_1"
-                app:layout_constraintTop_toTopOf="@+id/charging_latency_0"
-                app:layout_constraintBottom_toBottomOf="@+id/charging_latency_0"
-                app:layout_constraintStart_toEndOf="@+id/charging_latency_0"
-                app:layout_constraintEnd_toStartOf="@+id/charging_latency_2"
+                android:id="@+id/charging_latency_show_number"
+                app:layout_constraintTop_toTopOf="@+id/charging_latency_plus"
+                app:layout_constraintBottom_toBottomOf="@+id/charging_latency_plus"
+                app:layout_constraintStart_toEndOf="@+id/charging_latency_plus"
+                app:layout_constraintEnd_toStartOf="@+id/charging_latency_minus"
                 android:layout_marginHorizontal="10dp"
                 android:textColor="@color/black"
-                android:text="1"
-                android:onClick="onClick"/>
+                android:text="0 minutes" />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/charging_latency_2"
-                app:layout_constraintTop_toTopOf="@+id/charging_latency_0"
-                app:layout_constraintBottom_toBottomOf="@id/charging_latency_0"
-                app:layout_constraintStart_toEndOf="@+id/charging_latency_1"
+                android:id="@+id/charging_latency_minus"
+                app:layout_constraintTop_toTopOf="@+id/charging_latency_plus"
+                app:layout_constraintBottom_toBottomOf="@id/charging_latency_plus"
+                app:layout_constraintStart_toEndOf="@+id/charging_latency_show_number"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:textColor="@color/black"
-                android:text="2"
+                android:text="-"
                 android:onClick="onClick"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/charging_latency_3"
-                app:layout_constraintTop_toBottomOf="@+id/charging_latency_0"
-                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/charging_latency_send_title"
+                app:layout_constraintTop_toBottomOf="@+id/charging_latency_plus"
+                app:layout_constraintStart_toStartOf="@+id/charging_latency_plus"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/charging_latency_4"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                android:layout_marginVertical="20dp"
-                android:text="3"
+                android:layout_marginBottom="20dp"
+                android:text="(0xAA26) Send"
                 android:textColor="@color/black"
                 android:onClick="onClick"/>
 
-            <Button
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/charging_latency_4"
-                app:layout_constraintTop_toTopOf="@+id/charging_latency_3"
-                app:layout_constraintBottom_toBottomOf="@+id/charging_latency_3"
-                app:layout_constraintStart_toEndOf="@+id/charging_latency_3"
-                app:layout_constraintEnd_toStartOf="@+id/charging_latency_5"
-                android:layout_marginHorizontal="10dp"
+                android:id="@+id/charging_latency_send_content"
+                app:layout_constraintStart_toEndOf="@+id/charging_latency_send_title"
+                app:layout_constraintTop_toTopOf="@+id/charging_latency_send_title"
+                app:layout_constraintBottom_toBottomOf="@+id/charging_latency_send_title"
+                android:text="false"
                 android:textColor="@color/black"
-                android:text="4"
-                android:onClick="onClick"/>
+                android:layout_marginStart="10dp"
+                />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/charging_latency_5"
-                app:layout_constraintTop_toTopOf="@+id/charging_latency_3"
-                app:layout_constraintBottom_toBottomOf="@+id/charging_latency_3"
-                app:layout_constraintStart_toEndOf="@+id/charging_latency_4"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:textColor="@color/black"
-                android:text="5"
-                android:onClick="onClick"/>
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

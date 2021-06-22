@@ -13,6 +13,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.experimental.and
+import kotlin.math.min
 
 class ContentActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -58,11 +60,14 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
     private lateinit var tvRDConsumption:TextView
     private lateinit var tvRDNone:TextView
     private lateinit var tvNfcTagId:TextView
-    private lateinit var tvChargingLatency:TextView
+    private lateinit var tvChargingLatencyRead:TextView
+    private lateinit var tvChargingLatencySend:TextView
+    private lateinit var tvChargingLatencyMinutes:TextView
     private lateinit var tvHardwareStatus:TextView
     private lateinit var tvSoftwareStatus:TextView
     private lateinit var tvErrorCode:TextView
 
+    private var minutes=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,7 +108,9 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
         tvRDNone=findViewById(R.id.recorded_data_none_content)
 
         tvNfcTagId=findViewById(R.id.nfc_tag_id_content)
-        tvChargingLatency=findViewById(R.id.charging_latency_content)
+        tvChargingLatencyRead=findViewById(R.id.charging_latency_read_content)
+        tvChargingLatencySend=findViewById(R.id.charging_latency_send_content)
+        tvChargingLatencyMinutes=findViewById(R.id.charging_latency_show_number)
         tvHardwareStatus=findViewById(R.id.hardware_status_content)
         tvSoftwareStatus=findViewById(R.id.software_status_content)
         tvErrorCode=findViewById(R.id.error_code_content)
@@ -316,20 +323,18 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
             GattAttributes.mNfcTagId->{
                 tvNfcTagId.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
             }
-            GattAttributes.mChargingLatency -> {
+            GattAttributes.mChargingLatencyRead -> {
 
-                val hours=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
+                val minutes=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
 
-                when(hours){
+                tvChargingLatencyRead.text=("It's $minutes minutes")
 
-                    "0","1"->{
-                        tvChargingLatency.text=("$hours hour")
-                    }
-                    else->{
-                        tvChargingLatency.text=("$hours hours")
-                    }
+            }
+            GattAttributes.mChargingLatencySend->{
 
-                }
+                val minutes=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
+
+                tvChargingLatencySend.text=("$minutes, msg sent")
             }
             GattAttributes.mHardwareStatus->{
                 tvHardwareStatus.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
@@ -496,58 +501,33 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
                     mBluetoothLeService?.readCharacteristic(characteristic!!)
                 }
             }
-            R.id.charging_latency_0->{
-                val byteArray= byteArrayOf(0x00)
-                characteristic=
-                    (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
-                        .getCharacteristic(UUID.fromString(GattAttributes.charging_latency))
-
+            R.id.charging_latency_read_title->{
+                characteristic=(mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
+                    .getCharacteristic(UUID.fromString(GattAttributes.charging_latency))
                 if (characteristic!=null){
-                    mBluetoothLeService?.writeCharacteristic(characteristic!!,byteArray)
+                    mBluetoothLeService?.readCharacteristic(characteristic!!)
                 }
             }
-            R.id.charging_latency_1->{
-                val byteArray= byteArrayOf(0x01)
-                characteristic=
-                    (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
-                        .getCharacteristic(UUID.fromString(GattAttributes.charging_latency))
-
-                if (characteristic!=null){
-                    mBluetoothLeService?.writeCharacteristic(characteristic!!,byteArray)
+            R.id.charging_latency_plus->{
+                minutes++
+                if (minutes>255){
+                    minutes=0
                 }
+                tvChargingLatencyMinutes.text=((minutes*5).toString()+" minutes")
             }
-            R.id.charging_latency_2->{
-                val byteArray= byteArrayOf(0x02)
-                characteristic=
-                    (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
-                        .getCharacteristic(UUID.fromString(GattAttributes.charging_latency))
+            R.id.charging_latency_minus->{
+                minutes--
 
-                if (characteristic!=null){
-                    mBluetoothLeService?.writeCharacteristic(characteristic!!,byteArray)
+                if (minutes<0){
+                    minutes=255
                 }
-            }
-            R.id.charging_latency_3->{
-                val byteArray= byteArrayOf(0x03)
-                characteristic=
-                    (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
-                        .getCharacteristic(UUID.fromString(GattAttributes.charging_latency))
 
-                if (characteristic!=null){
-                    mBluetoothLeService?.writeCharacteristic(characteristic!!,byteArray)
-                }
+                tvChargingLatencyMinutes.text=((minutes*5).toString()+" minutes")
             }
-            R.id.charging_latency_4->{
-                val byteArray= byteArrayOf(0x04)
-                characteristic=
-                    (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
-                        .getCharacteristic(UUID.fromString(GattAttributes.charging_latency))
+            R.id.charging_latency_send_title->{
 
-                if (characteristic!=null){
-                    mBluetoothLeService?.writeCharacteristic(characteristic!!,byteArray)
-                }
-            }
-            R.id.charging_latency_5->{
-                val byteArray= byteArrayOf(0x05)
+                val byteArray= byteArrayOf((minutes and 0xFF).toByte())
+
                 characteristic=
                     (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
                         .getCharacteristic(UUID.fromString(GattAttributes.charging_latency))

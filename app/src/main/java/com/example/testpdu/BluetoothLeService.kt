@@ -116,6 +116,10 @@ class BluetoothLeService():Service() {
                 Log.d(TAG,"write successfully , goes to update time")
                 return
             }
+            if (characteristic.uuid== UUID.fromString(GattAttributes.charging_latency)){
+                broadcastUpdateLatency(ACTION_DATA_AVAILABLE,characteristic)
+                return
+            }
 
 
             broadcastUpdate(ACTION_DATA_AVAILABLE,characteristic)
@@ -171,6 +175,15 @@ class BluetoothLeService():Service() {
         intent.putExtra(CHARACTERISTIC,GattAttributes.mSetTime)
         sendBroadcast(intent)
         Log.d(TAG, time)
+    }
+    private fun broadcastUpdateLatency(action: String,characteristic: BluetoothGattCharacteristic){
+        val intent=Intent(action)
+
+        val data=((characteristic.value[0].toInt() and (0xFF))*5).toString()
+
+        intent.putExtra(EXTRA_DATA,data)
+        intent.putExtra(CHARACTERISTIC,GattAttributes.mChargingLatencySend)
+        sendBroadcast(intent)
     }
     private fun broadcastUpdate(action: String, characteristic: BluetoothGattCharacteristic){
         val intent=Intent(action)
@@ -407,13 +420,14 @@ class BluetoothLeService():Service() {
                 Log.d(TAG,"new $data")
             }
             GattAttributes.charging_latency->{
+                //for read only
                 var data=""
                 val size=characteristic.value.size
                 for (i in 0 until size){
-                    data+= (characteristic.value[i].toInt() and (0xFF)).toString()
+                    data+= ((characteristic.value[i].toInt() and (0xFF))*5).toString()
                 }
                 intent.putExtra(EXTRA_DATA, data)
-                intent.putExtra(CHARACTERISTIC,GattAttributes.mChargingLatency)
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mChargingLatencyRead)
                 Log.d(TAG, "$data, size is $size")
             }
             GattAttributes.hardware_status->{

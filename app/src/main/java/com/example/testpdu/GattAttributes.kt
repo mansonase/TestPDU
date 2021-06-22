@@ -80,7 +80,8 @@ class GattAttributes {
 
         const val mReadRecordedData="read_recorded_data"
         const val mNfcTagId="nfc_tag_id"
-        const val mChargingLatency="charging_latency"
+        const val mChargingLatencyRead="charging_latency_read"
+        const val mChargingLatencySend="charging_latency_send"
 
         const val mHardwareStatus="hardware_status"
         const val mSoftwareStatus="software_status"
