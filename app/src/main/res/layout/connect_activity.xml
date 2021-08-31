@@ -19,7 +19,7 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             android:layout_marginVertical="20dp"
             android:gravity="center"
-            android:text="(0x2A00)\nDevice Name"
+
             android:onClick="onClick"/>
 
         <TextView
@@ -32,7 +32,7 @@
             app:layout_constraintEnd_toStartOf="@+id/appearance_title"
             android:gravity="center"
             android:layout_marginStart="10dp"
-            android:text="False"
+            android:text="@string/fail"
             android:textColor="@color/black"
             android:textStyle="bold" />
 
@@ -46,7 +46,6 @@
             app:layout_constraintEnd_toStartOf="@+id/appearance_content"
             android:layout_marginStart="20dp"
             android:gravity="center"
-            android:text="(0x2A01)\nAppearance"
             android:onClick="onClick"/>
 
         <TextView
@@ -61,7 +60,7 @@
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="false"/>
+            android:text="@string/fail"/>
 
 
         <Button
@@ -74,7 +73,6 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="(0x2a04)\nPeripheral\nParameters"
             android:onClick="onClick"/>
 
         <TextView
@@ -89,7 +87,7 @@
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
 
 
@@ -102,7 +100,6 @@
             app:layout_constraintEnd_toEndOf="@+id/power_factor_title"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="(0xAA13) Watt"
             android:onClick="onClick"/>
 
         <TextView
@@ -116,7 +113,7 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_marginTop="5dp"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -125,10 +122,8 @@
             app:layout_constraintTop_toBottomOf="@+id/watt_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/recorded_data_constrainlayout"
-            app:layout_constraintHorizontal_chainStyle="packed"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="(0xAA14) Power Factor"
             android:onClick="onClick"/>
 
         <TextView
@@ -142,7 +137,7 @@
             android:layout_marginTop="5dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -152,6 +147,7 @@
             app:layout_constraintTop_toBottomOf="@+id/get_time_title"
             app:layout_constraintStart_toEndOf="@id/power_factor_title"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintWidth_percent="0.4"
             android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
@@ -166,7 +162,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="(0xAA24)\nRecorded Data"
                 android:onClick="onClick"/>
 
             <TextView
@@ -234,8 +229,7 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:layout_marginTop="20dp"
-                android:textSize="10dp"
-                android:text="Current: "/>
+                android:textSize="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -259,8 +253,7 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:layout_marginTop="20dp"
-                android:textSize="10dp"
-                android:text="Voltage: "/>
+                android:textSize="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -284,8 +277,7 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:layout_marginTop="20dp"
-                android:textSize="10dp"
-                android:text="Power :"/>
+                android:textSize="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -309,8 +301,7 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:layout_marginTop="20dp"
-                android:textSize="10dp"
-                android:text="Power Factor: "/>
+                android:textSize="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -371,7 +362,7 @@
                 app:layout_constraintStart_toEndOf="@+id/recorded_data_none_title"
                 android:gravity="center"
                 android:textColor="@color/black"
-                android:text="false"/>
+                android:text="@string/fail"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -387,7 +378,6 @@
             android:layout_marginTop="20dp"
             app:layout_constraintHorizontal_chainStyle="packed"
             android:gravity="center"
-            android:text="(0xAA15)\nLoad"
             android:onClick="onClick"/>
 
         <TextView
@@ -402,7 +392,7 @@
             android:layout_marginHorizontal="10dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
 
         <Button
@@ -414,7 +404,6 @@
             app:layout_constraintStart_toEndOf="@+id/load_content"
             app:layout_constraintEnd_toStartOf="@+id/load_detected_content"
             android:gravity="center"
-            android:text="(0xAA16)\nLoad\nDetected"
             android:onClick="onClick"/>
 
         <TextView
@@ -429,7 +418,7 @@
             android:gravity="center"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
 
 
@@ -443,7 +432,6 @@
             android:layout_marginTop="20dp"
             app:layout_constraintHorizontal_chainStyle="packed"
             android:gravity="center"
-            android:text="(0xAA21)\nPower\non"
             android:onClick="onClick"/>
 
         <TextView
@@ -458,7 +446,7 @@
             android:layout_marginHorizontal="10dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -469,7 +457,6 @@
             app:layout_constraintStart_toEndOf="@+id/power_on_content"
             app:layout_constraintEnd_toStartOf="@+id/power_off_content"
             android:gravity="center"
-            android:text="(0xAA21)\nPower\nOff"
             android:onClick="onClick"/>
 
         <TextView
@@ -484,9 +471,18 @@
             android:layout_marginHorizontal="10dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
 
+        <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/progressbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/power_on_title"
+            android:visibility="gone"/>
+        
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -497,7 +493,6 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="(0xAA22)\nSet Time"
             android:onClick="onClick"/>
 
         <TextView
@@ -512,7 +507,7 @@
             android:layout_marginHorizontal="10dp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -524,7 +519,6 @@
             app:layout_constraintEnd_toStartOf="@+id/get_time_content"
             android:gravity="center"
             android:textColor="@color/black"
-            android:text="(0xAA22)\nGet time"
             android:onClick="onClick"/>
 
         <TextView
@@ -539,7 +533,7 @@
             android:layout_marginHorizontal="10dp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
 
         <Button
@@ -551,7 +545,6 @@
             app:layout_constraintEnd_toEndOf="@+id/power_factor_title"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="(0xAA11) Current"
             android:onClick="onClick"/>
 
         <TextView
@@ -565,7 +558,7 @@
             android:gravity="center"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -576,7 +569,6 @@
             app:layout_constraintEnd_toEndOf="@+id/power_factor_title"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="(0xAA12) Voltage"
             android:onClick="onClick"/>
 
         <TextView
@@ -590,7 +582,7 @@
             android:gravity="center"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -602,7 +594,6 @@
             android:layout_marginTop="20dp"
             app:layout_constraintHorizontal_chainStyle="packed"
             android:gravity="center"
-            android:text="(0xAA23)\nDownload\non"
             android:onClick="onClick"/>
 
         <TextView
@@ -617,7 +608,7 @@
             android:layout_marginHorizontal="10dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -629,7 +620,6 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="(0xAA25) NFC Tag ID"
             android:onClick="onClick"/>
 
         <TextView
@@ -644,7 +634,7 @@
             android:layout_marginHorizontal="10dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -656,7 +646,6 @@
             android:gravity="center"
             app:layout_constraintHorizontal_chainStyle="packed"
             android:layout_marginTop="20dp"
-            android:text="(0x2A23) Device ID"
             android:onClick="onClick"/>
 
 
@@ -672,7 +661,7 @@
             android:layout_marginHorizontal="10dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -684,7 +673,6 @@
             app:layout_constraintEnd_toStartOf="@+id/manufacturer_name_content"
             android:gravity="center"
             android:textSize="10dp"
-            android:text="(0x2A29)\nManufacturer\nname"
             android:onClick="onClick"/>
         <TextView
             android:layout_width="wrap_content"
@@ -697,7 +685,7 @@
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -709,7 +697,6 @@
             android:gravity="center"
             android:layout_marginTop="10dp"
             app:layout_constraintHorizontal_chainStyle="packed"
-            android:text="(0x2A24)\nModel\nNo."
             android:onClick="onClick"/>
 
         <TextView
@@ -724,7 +711,7 @@
             android:layout_marginStart="10dp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -736,7 +723,6 @@
             app:layout_constraintEnd_toStartOf="@+id/serial_number_content"
             android:layout_marginStart="20dp"
             android:gravity="center"
-            android:text="(0x2A25)\nSerial\nNo."
             android:onClick="onClick"/>
 
         <TextView
@@ -751,7 +737,7 @@
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -763,7 +749,7 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="(0x2A26) Firmware Version"
+
             android:onClick="onClick"/>
 
         <TextView
@@ -778,7 +764,7 @@
             android:layout_marginHorizontal="10dp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -790,7 +776,6 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="(0x2A27) Hardware Version"
             android:onClick="onClick"/>
 
         <TextView
@@ -805,7 +790,7 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_marginHorizontal="10dp"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -817,7 +802,6 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="(0x2A28) Software Version"
             android:onClick="onClick"/>
 
         <TextView
@@ -832,7 +816,7 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_marginHorizontal="10dp"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
 
 
@@ -847,7 +831,6 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             android:layout_marginTop="30dp"
             android:gravity="center"
-            android:text="(0xAA31)\nHardware Status"
             android:onClick="onClick"/>
 
         <TextView
@@ -861,7 +844,7 @@
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -871,7 +854,6 @@
             app:layout_constraintStart_toStartOf="@+id/hardware_status_title"
             android:layout_marginVertical="10dp"
             android:gravity="center"
-            android:text="(0xAA32)\nSoftware Status"
             android:onClick="onClick"/>
 
         <TextView
@@ -885,7 +867,7 @@
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -896,7 +878,6 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:text="(0xAA33)\nError Code"
             android:onClick="onClick"/>
 
         <TextView
@@ -910,7 +891,7 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_marginStart="10dp"
-            android:text="False"/>
+            android:text="@string/fail"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -934,7 +915,6 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintVertical_chainStyle="packed"
                 android:layout_marginTop="20dp"
-                android:text="(0xAA26) Charging Latency : "
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textColor="@color/black"
@@ -949,7 +929,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/charging_latency_read_title"
                 app:layout_constraintStart_toEndOf="@+id/charging_latency_read_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="false"
+                android:text="@string/fail"
                 android:layout_marginStart="10dp"
                 android:gravity="center"
                 android:textStyle="bold"
@@ -988,8 +968,7 @@
                 app:layout_constraintStart_toEndOf="@+id/charging_latency_plus"
                 app:layout_constraintEnd_toStartOf="@+id/charging_latency_minus"
                 android:layout_marginHorizontal="10dp"
-                android:textColor="@color/black"
-                android:text="0 minutes" />
+                android:textColor="@color/black" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -1011,7 +990,6 @@
                 app:layout_constraintStart_toStartOf="@+id/charging_latency_plus"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="20dp"
-                android:text="(0xAA26) Send"
                 android:textColor="@color/black"
                 android:onClick="onClick"/>
 
@@ -1022,7 +1000,7 @@
                 app:layout_constraintStart_toEndOf="@+id/charging_latency_send_title"
                 app:layout_constraintTop_toTopOf="@+id/charging_latency_send_title"
                 app:layout_constraintBottom_toBottomOf="@+id/charging_latency_send_title"
-                android:text="false"
+                android:text="@string/fail"
                 android:textColor="@color/black"
                 android:layout_marginStart="10dp"
                 />

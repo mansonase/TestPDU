@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         val layoutManager=LinearLayoutManager(this)
         layoutManager.orientation=LinearLayoutManager.VERTICAL
-        mRecyclerView=findViewById<RecyclerView>(R.id.recyclerview)
+        mRecyclerView=findViewById(R.id.recyclerview)
         mRecyclerView.layoutManager=layoutManager
 
         mRecyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))

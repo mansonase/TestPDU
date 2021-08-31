@@ -312,7 +312,7 @@ class BluetoothLeService():Service() {
                 intent.putExtra(CHARACTERISTIC,GattAttributes.mLoad)
             }
             GattAttributes.load_detected->{
-                val data=(characteristic.value[0].toInt() and (0xFF)).toString()
+                val data=(characteristic.value[0].toInt() and (0xFF))
                 Log.d(TAG, "$data, load detected")
                 intent.putExtra(EXTRA_DATA, data)
                 intent.putExtra(CHARACTERISTIC,GattAttributes.mLoadDetected)
@@ -521,6 +521,18 @@ class BluetoothLeService():Service() {
             descriptor.value = BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE
             gatt!!.writeDescriptor(descriptor)
 
+        }
+    }
+
+    fun disableCharacteristicNotification(characteristic: BluetoothGattCharacteristic){
+        if (adapter==null||gatt==null){
+            return
+        }
+        gatt!!.setCharacteristicNotification(characteristic,false)
+        if (characteristic.uuid!=null){
+            val descriptor=characteristic.getDescriptor(UUID.fromString(GattAttributes.CONFIG))
+            descriptor.value=BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE
+            gatt!!.writeDescriptor(descriptor)
         }
     }
 

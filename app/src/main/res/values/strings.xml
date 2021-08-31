@@ -13,6 +13,23 @@
 
     <string name="device_name">Device Name</string>
     <string name="appearance">Appearance</string>
+    <string name="peripheral_parameters">peripheral\nparameters</string>
+    <string name="power_on">Power\non</string>
+    <string name="power_off">Power\noff</string>
+    <string name="set_time">Set Time</string>
+    <string name="get_time">Get Time</string>
+    <string name="record_data">Record Data</string>
+    <string name="loaded">loaded</string>
+    <string name="non_loaded">non-loaded</string>
+    <string name="download_on">Download On</string>
+    <string name="nfc_tag_id">NFC tag ID</string>
+    <string name="charging_latency">Charging Latency</string>
+    <string name="fail">fail</string>
+    <string name="send">send</string>
+    <string name="minutes">minutes</string>
+    <string name="msg_sent">msg sent</string>
+    <string name="it_s">It is</string>
+
 
     <string name="device_id">Device ID</string>
     <string name="model_number">Model Number</string>
@@ -20,7 +37,7 @@
     <string name="firmware_version">Firmware Version</string>
     <string name="hardware_version">Hardware Version</string>
     <string name="software_version">Software Version</string>
-    <string name="manufacturer_name">Manufacturer Name</string>
+    <string name="manufacturer_name">Manufacturer\nName</string>
     
     <string name="current">Current</string>
     <string name="Voltage">Voltage</string>
