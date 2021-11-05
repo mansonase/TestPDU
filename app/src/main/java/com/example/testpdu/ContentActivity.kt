@@ -68,7 +68,8 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
     private lateinit var tvHardwareStatus:TextView
     private lateinit var tvSoftwareStatus:TextView
     private lateinit var tvErrorCode:TextView
-
+    private lateinit var tvMachineStatus:TextView
+    private lateinit var tvMeterVersion:TextView
 
     private lateinit var progressBar: ProgressBar
     private var minutes=0
@@ -119,6 +120,8 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
         tvHardwareStatus=findViewById(R.id.hardware_status_content)
         tvSoftwareStatus=findViewById(R.id.software_status_content)
         tvErrorCode=findViewById(R.id.error_code_content)
+        tvMachineStatus=findViewById(R.id.machine_status_content)
+        tvMeterVersion=findViewById(R.id.meter_version_content)
 
 
         findViewById<Button>(R.id.device_name_title).text=("(0x2A00)\n"+getString(R.string.device_name))
@@ -155,6 +158,9 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
         findViewById<Button>(R.id.error_code_title).text=("(0xAA33)\n"+getString(R.string.error_code))
         findViewById<Button>(R.id.charging_latency_read_title).text=("(0xAA26) "+getString(R.string.charging_latency)+" : ")
         findViewById<Button>(R.id.charging_latency_send_title).text=("(0xAA26) "+getString(R.string.send))
+        findViewById<Button>(R.id.machine_status_title).text=("(0xAA42)\n"+getString(R.string.machine_status))
+        findViewById<Button>(R.id.meter_version_title).text=("(0xAA43)\n"+getString(R.string.meter_version))
+
 
         progressBar=findViewById(R.id.progressbar)
 
@@ -338,6 +344,7 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
                 tvPowerOn.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
                 tvPowerOff.text=getString(R.string.fail)
                 switchOnNotifications()
+                //switchOnNewFunction()
             }
             GattAttributes.mPowerOff->{
                 tvPowerOff.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
@@ -392,6 +399,12 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
             }
             GattAttributes.mErrorCode->{
                 tvErrorCode.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
+            }
+            GattAttributes.mMachineStatus->{
+                tvMachineStatus.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
+            }
+            GattAttributes.mMeterVersion->{
+                tvMeterVersion.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
             }
 
         }
@@ -649,6 +662,20 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
                     mBluetoothLeService?.readCharacteristic(characteristic!!)
                 }
             }
+            R.id.machine_status_title->{
+                characteristic=(mBluetoothLeService?.getSupportedGattService(GattAttributes.EXTRA_CONTROL)as BluetoothGattService)
+                    .getCharacteristic(UUID.fromString(GattAttributes.machine_status))
+                if (characteristic!=null){
+                    mBluetoothLeService?.readCharacteristic(characteristic!!)
+                }
+            }
+            R.id.meter_version_title->{
+                characteristic=(mBluetoothLeService?.getSupportedGattService(GattAttributes.EXTRA_CONTROL)as BluetoothGattService)
+                    .getCharacteristic(UUID.fromString(GattAttributes.meter_parameter))
+                if (characteristic!=null){
+                    mBluetoothLeService?.readCharacteristic(characteristic!!)
+                }
+            }
         }
     }
 
@@ -775,6 +802,30 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
                     mBluetoothLeService?.writeCharacteristic(characteristic!!,byteArray)
                 }
                 progressBar.visibility=View.GONE
+            }
+
+        }.start()
+    }
+    private fun switchOnNewFunction(){
+        Thread{
+
+            runOnUiThread {
+                characteristic=(mBluetoothLeService?.getSupportedGattService(GattAttributes.EXTRA_CONTROL)as BluetoothGattService)
+                    .getCharacteristic(UUID.fromString(GattAttributes.machine_status))
+                if (characteristic!=null){
+                    mBluetoothLeService?.readCharacteristic(characteristic!!)
+                }
+            }
+
+            Thread.sleep(200)
+
+            runOnUiThread {
+                characteristic=(mBluetoothLeService?.getSupportedGattService(GattAttributes.EXTRA_CONTROL)as BluetoothGattService)
+                    .getCharacteristic(UUID.fromString(GattAttributes.meter_parameter))
+                if (characteristic!=null){
+                    mBluetoothLeService?.readCharacteristic(characteristic!!)
+                }
+
             }
 
         }.start()

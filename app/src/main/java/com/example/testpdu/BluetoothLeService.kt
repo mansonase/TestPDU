@@ -451,6 +451,18 @@ class BluetoothLeService():Service() {
                 intent.putExtra(CHARACTERISTIC,GattAttributes.mErrorCode)
                 Log.d(TAG, data)
             }
+            GattAttributes.machine_status->{
+                val data=characteristic.value.toHexString()
+                intent.putExtra(EXTRA_DATA,data)
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mMachineStatus)
+                Log.d(TAG,"the machine status is $data")
+            }
+            GattAttributes.meter_parameter->{
+                val data=characteristic.value.toHexString()
+                intent.putExtra(EXTRA_DATA,data)
+                intent.putExtra(CHARACTERISTIC,GattAttributes.mMeterVersion)
+                Log.d(TAG,"the parameter is $data")
+            }
         }
         sendBroadcast(intent)
     }

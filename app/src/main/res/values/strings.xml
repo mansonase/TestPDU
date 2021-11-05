@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Test PDU</string>
+    <string name="app_name">F116 Engineer</string>
     <string name="need_fine_permission">Need Location Permission</string>
     <string name="need_fine_permission_to_use_ble">Ask for BLE function</string>
     <string name="ok_i_know">OK, I know</string>
@@ -46,8 +46,10 @@
     <string name="load">Load</string>
     <string name="load_detect">Load Detected</string>
     
-    <string name="hardware_status">Hardware Status</string>
-    <string name="software_status">Software Status</string>
+    <string name="hardware_status">Hardware\nStatus</string>
+    <string name="software_status">Software\nStatus</string>
     <string name="error_code">Error Code</string>
+    <string name="machine_status">Machine\nStatus</string>
+    <string name="meter_version">Meter\nVersion</string>
     
 </resources>

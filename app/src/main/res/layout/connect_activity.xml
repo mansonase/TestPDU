@@ -818,20 +818,17 @@
             android:layout_marginHorizontal="10dp"
             android:text="@string/fail"/>
 
-
-
-
-
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/hardware_status_title"
             app:layout_constraintTop_toBottomOf="@+id/software_version_title"
-            app:layout_constraintStart_toStartOf="@+id/software_version_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/hardware_status_content"
             app:layout_constraintHorizontal_chainStyle="packed"
             android:layout_marginTop="30dp"
             android:gravity="center"
-            android:onClick="onClick"/>
+            android:onClick="onClick" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -840,6 +837,7 @@
             app:layout_constraintTop_toTopOf="@+id/hardware_status_title"
             app:layout_constraintBottom_toBottomOf="@+id/hardware_status_title"
             app:layout_constraintStart_toEndOf="@+id/hardware_status_title"
+            app:layout_constraintEnd_toStartOf="@+id/machine_status_title"
             android:gravity="center"
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
@@ -849,10 +847,38 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/machine_status_title"
+            app:layout_constraintTop_toTopOf="@+id/hardware_status_title"
+            app:layout_constraintBottom_toBottomOf="@+id/hardware_status_title"
+            app:layout_constraintStart_toEndOf="@+id/hardware_status_content"
+            app:layout_constraintEnd_toStartOf="@+id/machine_status_content"
+            android:gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:textColor="@color/black"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/machine_status_content"
+            app:layout_constraintTop_toTopOf="@+id/machine_status_title"
+            app:layout_constraintBottom_toBottomOf="@+id/machine_status_title"
+            app:layout_constraintStart_toEndOf="@+id/machine_status_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="@string/fail"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/software_status_title"
             app:layout_constraintTop_toBottomOf="@+id/hardware_status_title"
-            app:layout_constraintStart_toStartOf="@+id/hardware_status_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/software_status_content"
             android:layout_marginVertical="10dp"
+            app:layout_constraintHorizontal_chainStyle="packed"
             android:gravity="center"
             android:onClick="onClick"/>
 
@@ -863,8 +889,35 @@
             app:layout_constraintTop_toTopOf="@+id/software_status_title"
             app:layout_constraintBottom_toBottomOf="@+id/software_status_title"
             app:layout_constraintStart_toEndOf="@+id/software_status_title"
+            app:layout_constraintEnd_toStartOf="@+id/meter_version_title"
             android:gravity="center"
             android:layout_marginStart="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="@string/fail"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/meter_version_title"
+            app:layout_constraintTop_toTopOf="@+id/software_status_title"
+            app:layout_constraintBottom_toBottomOf="@+id/software_status_title"
+            app:layout_constraintStart_toEndOf="@+id/software_status_content"
+            app:layout_constraintEnd_toStartOf="@+id/meter_version_content"
+            android:gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:textColor="@color/black"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/meter_version_content"
+            app:layout_constraintTop_toTopOf="@+id/meter_version_title"
+            app:layout_constraintBottom_toBottomOf="@+id/meter_version_title"
+            app:layout_constraintStart_toEndOf="@+id/meter_version_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:text="@string/fail"/>
