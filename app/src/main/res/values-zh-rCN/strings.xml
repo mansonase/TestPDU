@@ -50,5 +50,5 @@
     <string name="software_status">软件状态</string>
     <string name="error_code">错误码</string>
     <string name="machine_status">机器状态</string>
-    <string name="meter_version">meter参数版本</string>
+    <string name="meter_version">meter\n参数版本</string>
 </resources>
