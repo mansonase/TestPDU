@@ -1,4 +1,4 @@
-package com.example.testpdu
+package com.example.testviatom
 
 import android.app.Service
 import android.bluetooth.*
@@ -190,6 +190,16 @@ class BluetoothLeService():Service() {
 
         Log.d(TAG,characteristic.uuid.toString())
         when(characteristic.uuid.toString()){
+
+            GattAttributes.pb2_write->{
+                Log.d("georgevia","write successfully")
+            }
+            GattAttributes.pb2_notify->{
+                Log.d("georgevia","notify successfully,${characteristic.value.size},content is ${characteristic.value.toHexString()}")
+
+                intent.putExtra(EXTRA_DATA, characteristic.value)
+                intent.putExtra(CHARACTERISTIC,GattAttributes.pb2_notify)
+            }
 
             GattAttributes.device_name->{
                 val data= characteristic.getStringValue(0)
@@ -591,5 +601,6 @@ class BluetoothLeService():Service() {
         this.joinToString(separator) {
             String.format("%02X",it)
         }
+
 
 }

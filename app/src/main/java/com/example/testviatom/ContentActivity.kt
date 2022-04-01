@@ -1,4 +1,4 @@
-package com.example.testpdu
+package com.example.testviatom
 
 import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.BluetoothGattService
@@ -14,9 +14,6 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.experimental.and
-import kotlin.math.min
 
 class ContentActivity : AppCompatActivity(),View.OnClickListener {
 

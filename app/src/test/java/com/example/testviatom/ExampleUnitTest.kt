@@ -1,4 +1,4 @@
-package com.example.testpdu
+package com.example.testviatom
 
 import org.junit.Test
 

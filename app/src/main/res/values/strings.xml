@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">F116 Engineer</string>
+    <string name="app_name">Test Viatom</string>
     <string name="need_fine_permission">Need Location Permission</string>
     <string name="need_fine_permission_to_use_ble">Ask for BLE function</string>
     <string name="ok_i_know">OK, I know</string>

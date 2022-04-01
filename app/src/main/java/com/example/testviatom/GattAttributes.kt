@@ -1,4 +1,4 @@
-package com.example.testpdu
+package com.example.testviatom
 
 class GattAttributes {
 
@@ -18,6 +18,10 @@ class GattAttributes {
         val DEVICE_CONTROL = "0000aa20-0000-1000-8000-00805f9b34fb"
         val SYSTEM_STATUS = "0000aa30-0000-1000-8000-00805f9b34fb"
         val EXTRA_CONTROL="0000aa40-0000-1000-8000-00805f9b34fb"
+
+        val BP2_SERVICE     ="14839ac4-7d7e-415c-9a42-167340cf2339"
+        const val pb2_write ="8b00ace7-eb0b-49b0-bbe9-9aee0a26e1a3"
+        const val pb2_notify="0734594a-a8e7-4b1a-a6b1-cd5243059a57"
 
 
         const val device_name = "00002a00-0000-1000-8000-00805f9b34fb"
