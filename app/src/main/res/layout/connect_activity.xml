@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/scrollView"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -10,1058 +11,1508 @@
 
 
         <Button
+            android:id="@+id/device_name_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/device_name_title"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/device_name_content"
-            app:layout_constraintHorizontal_chainStyle="packed"
             android:layout_marginVertical="20dp"
             android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toStartOf="@+id/device_name_content"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
 
-            android:onClick="onClick"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/device_name_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/device_name_content"
-            app:layout_constraintTop_toTopOf="@+id/device_name_title"
-            app:layout_constraintBottom_toBottomOf="@+id/device_name_title"
-            app:layout_constraintStart_toEndOf="@+id/device_name_title"
-            app:layout_constraintEnd_toStartOf="@+id/appearance_title"
-            android:gravity="center"
             android:layout_marginStart="10dp"
+            android:gravity="center"
             android:text="@string/fail"
             android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/device_name_title"
+            app:layout_constraintEnd_toStartOf="@+id/appearance_title"
+            app:layout_constraintStart_toEndOf="@+id/device_name_title"
+            app:layout_constraintTop_toTopOf="@+id/device_name_title" />
 
         <Button
+            android:id="@+id/appearance_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/appearance_title"
-            app:layout_constraintTop_toTopOf="@+id/device_name_title"
-            app:layout_constraintBottom_toBottomOf="@+id/device_name_title"
-            app:layout_constraintStart_toEndOf="@+id/device_name_content"
-            app:layout_constraintEnd_toStartOf="@+id/appearance_content"
             android:layout_marginStart="20dp"
             android:gravity="center"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            app:layout_constraintBottom_toBottomOf="@+id/device_name_title"
+            app:layout_constraintEnd_toStartOf="@+id/appearance_content"
+            app:layout_constraintStart_toEndOf="@+id/device_name_content"
+            app:layout_constraintTop_toTopOf="@+id/device_name_title" />
 
         <TextView
+            android:id="@+id/appearance_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/appearance_content"
-            app:layout_constraintTop_toTopOf="@+id/device_name_title"
-            app:layout_constraintBottom_toBottomOf="@+id/device_name_title"
-            app:layout_constraintStart_toEndOf="@+id/appearance_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center"
             android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="@string/fail"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="@string/fail"/>
+            app:layout_constraintBottom_toBottomOf="@+id/device_name_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/appearance_title"
+            app:layout_constraintTop_toTopOf="@+id/device_name_title" />
 
 
         <Button
+            android:id="@+id/peripheral_pcp_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/peripheral_pcp_title"
-            app:layout_constraintTop_toBottomOf="@+id/device_name_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/peripheral_pcp_content"
-            app:layout_constraintHorizontal_chainStyle="packed"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/peripheral_pcp_content"
-            app:layout_constraintTop_toTopOf="@+id/peripheral_pcp_title"
-            app:layout_constraintBottom_toBottomOf="@+id/peripheral_pcp_title"
-            app:layout_constraintStart_toEndOf="@+id/peripheral_pcp_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="@string/fail"/>
-
-
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/watt_title"
-            app:layout_constraintTop_toBottomOf="@+id/voltage_content"
-            app:layout_constraintStart_toStartOf="@+id/power_factor_title"
-            app:layout_constraintEnd_toEndOf="@+id/power_factor_title"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/watt_content"
-            app:layout_constraintTop_toBottomOf="@+id/watt_title"
-            app:layout_constraintStart_toStartOf="@+id/watt_title"
-            app:layout_constraintEnd_toEndOf="@+id/watt_title"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginTop="5dp"
-            android:text="@string/fail"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/power_factor_title"
-            app:layout_constraintTop_toBottomOf="@+id/watt_content"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toStartOf="@+id/peripheral_pcp_content"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/recorded_data_constrainlayout"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:onClick="onClick"/>
+            app:layout_constraintTop_toBottomOf="@+id/device_name_title" />
 
         <TextView
+            android:id="@+id/peripheral_pcp_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/power_factor_content"
-            app:layout_constraintTop_toBottomOf="@+id/power_factor_title"
-            app:layout_constraintStart_toStartOf="@+id/power_factor_title"
-            app:layout_constraintEnd_toEndOf="@+id/power_factor_title"
+            android:layout_marginStart="10dp"
             android:gravity="center"
-            android:layout_marginTop="5dp"
+            android:text="@string/fail"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="@string/fail"/>
+            app:layout_constraintBottom_toBottomOf="@+id/peripheral_pcp_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/peripheral_pcp_title"
+            app:layout_constraintTop_toTopOf="@+id/peripheral_pcp_title" />
+
+
+        <Button
+            android:id="@+id/watt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toEndOf="@+id/power_factor_title"
+            app:layout_constraintStart_toStartOf="@+id/power_factor_title"
+            app:layout_constraintTop_toBottomOf="@+id/voltage_content" />
+
+        <TextView
+            android:id="@+id/watt_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/watt_title"
+            app:layout_constraintStart_toStartOf="@+id/watt_title"
+            app:layout_constraintTop_toBottomOf="@+id/watt_title" />
+
+        <Button
+            android:id="@+id/power_factor_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toStartOf="@+id/recorded_data_constrainlayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/watt_content" />
+
+        <TextView
+            android:id="@+id/power_factor_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/power_factor_title"
+            app:layout_constraintStart_toStartOf="@+id/power_factor_title"
+            app:layout_constraintTop_toBottomOf="@+id/power_factor_title" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/recorded_data_constrainlayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/recorded_data_constrainlayout"
-            app:layout_constraintTop_toBottomOf="@+id/get_time_title"
-            app:layout_constraintStart_toEndOf="@id/power_factor_title"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/charginglagencyborder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintWidth_percent="0.4"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/charginglagencyborder">
+            app:layout_constraintStart_toEndOf="@id/power_factor_title"
+            app:layout_constraintTop_toBottomOf="@+id/get_time_title"
+            app:layout_constraintWidth_percent="0.4">
 
             <Button
+                android:id="@+id/recorded_data_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/recorded_data_button"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:onClick="onClick"/>
+                android:onClick="onClick"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/recorded_data_start_time_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/recorded_data_start_time_title"
-                app:layout_constraintTop_toBottomOf="@+id/recorded_data_button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/recorded_data_start_time_content"
-                app:layout_constraintHorizontal_chainStyle="packed"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="Start: "
+                android:textColor="@color/black"
                 android:textSize="10dp"
-                android:textColor="@color/black"/>
+                app:layout_constraintEnd_toStartOf="@+id/recorded_data_start_time_content"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recorded_data_button" />
 
             <TextView
+                android:id="@+id/recorded_data_start_time_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/recorded_data_start_time_content"
 
-                app:layout_constraintBottom_toBottomOf="@+id/recorded_data_start_time_title"
-                app:layout_constraintStart_toEndOf="@+id/recorded_data_start_time_title"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:gravity="center"
-                android:textSize="10dp"
                 android:text="0000-00-00 00:00:00"
                 android:textColor="@color/black"
-                />
+                android:textSize="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/recorded_data_start_time_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/recorded_data_start_time_title" />
 
             <TextView
+                android:id="@+id/recorded_data_end_time_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/recorded_data_end_time_title"
-                app:layout_constraintTop_toBottomOf="@+id/recorded_data_start_time_title"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="End: "
+                android:textColor="@color/black"
+                android:textSize="10dp"
                 app:layout_constraintEnd_toStartOf="@+id/recorded_data_end_time_content"
                 app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recorded_data_start_time_title" />
+
+            <TextView
+                android:id="@+id/recorded_data_end_time_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="0000-00-00 00:00:00"
+                android:textColor="@color/black"
+                android:textSize="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/recorded_data_end_time_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/recorded_data_end_time_title" />
+
+            <TextView
+                android:id="@+id/recorded_data_current_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="10dp"
-                android:text="End: "/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/recorded_data_end_time_content"
-                app:layout_constraintBottom_toBottomOf="@+id/recorded_data_end_time_title"
-                app:layout_constraintStart_toEndOf="@+id/recorded_data_end_time_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:gravity="center"
-                android:textSize="10dp"
-                android:textColor="@color/black"
-                android:text="0000-00-00 00:00:00" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/recorded_data_current_title"
-                app:layout_constraintTop_toBottomOf="@+id/recorded_data_end_time_title"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/recorded_data_current_content"
                 app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recorded_data_end_time_title" />
+
+            <TextView
+                android:id="@+id/recorded_data_current_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="0000.000"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/recorded_data_current_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/recorded_data_current_title" />
+
+            <TextView
+                android:id="@+id/recorded_data_voltage_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:textColor="@color/black"
-                android:layout_marginTop="20dp"
-                android:textSize="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/recorded_data_current_content"
-                app:layout_constraintBottom_toBottomOf="@+id/recorded_data_current_title"
-                app:layout_constraintStart_toEndOf="@+id/recorded_data_current_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="0000.000"
-                android:gravity="center"
-                android:textColor="@color/black"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/recorded_data_voltage_title"
-                app:layout_constraintTop_toBottomOf="@+id/recorded_data_current_title"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="10dp"
                 app:layout_constraintEnd_toStartOf="@+id/recorded_data_voltage_content"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:layout_marginTop="20dp"
-                android:textSize="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/recorded_data_voltage_content"
-                app:layout_constraintBottom_toBottomOf="@+id/recorded_data_voltage_title"
-                app:layout_constraintStart_toEndOf="@+id/recorded_data_voltage_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:text="0000.000"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/recorded_data_power_title"
-                app:layout_constraintTop_toBottomOf="@+id/recorded_data_voltage_title"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recorded_data_current_title" />
+
+            <TextView
+                android:id="@+id/recorded_data_voltage_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="0000.000"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/recorded_data_voltage_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/recorded_data_voltage_title" />
+
+            <TextView
+                android:id="@+id/recorded_data_power_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="10dp"
                 app:layout_constraintEnd_toStartOf="@+id/recorded_data_power_content"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:layout_marginTop="20dp"
-                android:textSize="10dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recorded_data_voltage_title" />
 
             <TextView
+                android:id="@+id/recorded_data_power_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/recorded_data_power_content"
+                android:gravity="center"
+                android:text="0000.000"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/recorded_data_power_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/recorded_data_power_title"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:text="0000.000"/>
+                app:layout_constraintStart_toEndOf="@+id/recorded_data_power_title" />
 
             <TextView
+                android:id="@+id/recorded_data_power_factor_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/recorded_data_power_factor_title"
-                app:layout_constraintTop_toBottomOf="@+id/recorded_data_power_title"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="10dp"
                 app:layout_constraintEnd_toStartOf="@+id/recorded_data_power_factor_content"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:layout_marginTop="20dp"
-                android:textSize="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/recorded_data_power_factor_content"
-                app:layout_constraintBottom_toBottomOf="@+id/recorded_data_power_factor_title"
-                app:layout_constraintStart_toEndOf="@+id/recorded_data_power_factor_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:text="0000.000"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/recorded_data_consumption_title"
-                app:layout_constraintTop_toBottomOf="@+id/recorded_data_power_factor_title"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recorded_data_power_title" />
+
+            <TextView
+                android:id="@+id/recorded_data_power_factor_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="0000.000"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/recorded_data_power_factor_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/recorded_data_power_factor_title" />
+
+            <TextView
+                android:id="@+id/recorded_data_consumption_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Consumption: "
+                android:textColor="@color/black"
+                android:textSize="10dp"
                 app:layout_constraintEnd_toStartOf="@+id/recorded_data_consumption_content"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/black"
-                android:textSize="10dp"
-                android:text="Consumption: "/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recorded_data_power_factor_title" />
 
             <TextView
+                android:id="@+id/recorded_data_consumption_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/recorded_data_consumption_content"
+                android:gravity="center"
+                android:text="0000.000"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/recorded_data_consumption_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/recorded_data_consumption_title"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:text="0000.000"/>
+                app:layout_constraintStart_toEndOf="@+id/recorded_data_consumption_title" />
 
             <TextView
+                android:id="@+id/recorded_data_none_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/recorded_data_none_title"
-                app:layout_constraintTop_toBottomOf="@+id/recorded_data_consumption_title"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/recorded_data_none_content"
-                app:layout_constraintHorizontal_chainStyle="packed"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="30dp"
+                android:text="None: "
                 android:textColor="@color/black"
                 android:textSize="10dp"
-                android:text="None: "/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/recorded_data_none_content"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recorded_data_consumption_title" />
 
             <TextView
+                android:id="@+id/recorded_data_none_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/recorded_data_none_content"
+                android:gravity="center"
+                android:text="@string/fail"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/recorded_data_none_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/recorded_data_none_title"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:text="@string/fail"/>
+                app:layout_constraintStart_toEndOf="@+id/recorded_data_none_title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/load_title"
-            app:layout_constraintTop_toBottomOf="@+id/recorded_data_constrainlayout"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:onClick="onClick"
             app:layout_constraintEnd_toStartOf="@+id/load_content"
-            android:layout_marginTop="20dp"
             app:layout_constraintHorizontal_chainStyle="packed"
-            android:gravity="center"
-            android:onClick="onClick"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recorded_data_constrainlayout" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/load_content"
-            app:layout_constraintTop_toTopOf="@+id/load_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/load_title"
-            app:layout_constraintStart_toEndOf="@+id/load_title"
             app:layout_constraintEnd_toStartOf="@+id/load_detected_title"
-            android:gravity="center"
-            android:layout_marginHorizontal="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="@string/fail"/>
+            app:layout_constraintStart_toEndOf="@+id/load_title"
+            app:layout_constraintTop_toTopOf="@+id/load_title" />
 
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/load_detected_title"
-            app:layout_constraintTop_toTopOf="@+id/load_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="onClick"
             app:layout_constraintBottom_toBottomOf="@+id/load_title"
-            app:layout_constraintStart_toEndOf="@+id/load_content"
             app:layout_constraintEnd_toStartOf="@+id/load_detected_content"
-            android:gravity="center"
-            android:onClick="onClick"/>
+            app:layout_constraintStart_toEndOf="@+id/load_content"
+            app:layout_constraintTop_toTopOf="@+id/load_title" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/load_detected_content"
-            app:layout_constraintTop_toTopOf="@+id/load_detected_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/load_detected_title"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/load_detected_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="10dp"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="@string/fail"/>
+            app:layout_constraintTop_toTopOf="@+id/load_detected_title" />
 
-
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/power_on_title"
-            app:layout_constraintTop_toBottomOf="@+id/peripheral_pcp_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/power_on_content"
-            android:layout_marginTop="20dp"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            android:gravity="center"
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/power_on_content"
-            app:layout_constraintTop_toTopOf="@+id/power_on_title"
-            app:layout_constraintBottom_toBottomOf="@+id/power_on_title"
-            app:layout_constraintStart_toEndOf="@+id/power_on_title"
-            app:layout_constraintEnd_toStartOf="@+id/power_off_title"
-            android:gravity="center"
-            android:layout_marginHorizontal="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="@string/fail"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/power_off_title"
-            app:layout_constraintTop_toTopOf="@+id/power_on_title"
-            app:layout_constraintBottom_toBottomOf="@+id/power_on_title"
-            app:layout_constraintStart_toEndOf="@+id/power_on_content"
-            app:layout_constraintEnd_toStartOf="@+id/power_off_content"
-            android:gravity="center"
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/power_off_content"
-            app:layout_constraintTop_toTopOf="@+id/power_off_title"
-            app:layout_constraintBottom_toBottomOf="@+id/power_off_title"
-            app:layout_constraintStart_toEndOf="@+id/power_off_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center"
-            android:layout_marginHorizontal="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="@string/fail"/>
-
-
-        <ProgressBar
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/progressbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/power_on_title"
-            android:visibility="gone"/>
-        
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/set_time_title"
-            app:layout_constraintTop_toBottomOf="@+id/power_on_title"
-            app:layout_constraintEnd_toStartOf="@+id/set_time_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/set_time_content"
-            app:layout_constraintTop_toTopOf="@+id/set_time_title"
-            app:layout_constraintBottom_toBottomOf="@+id/set_time_title"
-            app:layout_constraintStart_toEndOf="@+id/set_time_title"
-            app:layout_constraintEnd_toStartOf="@+id/get_time_title"
-            android:gravity="center"
-            android:layout_marginHorizontal="10dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:text="@string/fail"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/get_time_title"
-            app:layout_constraintTop_toTopOf="@+id/set_time_title"
-            app:layout_constraintBottom_toBottomOf="@+id/set_time_title"
-            app:layout_constraintStart_toEndOf="@+id/set_time_content"
-            app:layout_constraintEnd_toStartOf="@+id/get_time_content"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/get_time_content"
-            app:layout_constraintTop_toTopOf="@+id/get_time_title"
-            app:layout_constraintBottom_toBottomOf="@+id/get_time_title"
-            app:layout_constraintStart_toEndOf="@+id/get_time_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center"
-            android:layout_marginHorizontal="10dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:text="@string/fail"/>
-
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/current_title"
-            app:layout_constraintTop_toBottomOf="@+id/set_time_title"
-            app:layout_constraintStart_toStartOf="@+id/power_factor_title"
-            app:layout_constraintEnd_toEndOf="@+id/power_factor_title"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/current_content"
-            app:layout_constraintTop_toBottomOf="@+id/current_title"
-            app:layout_constraintStart_toStartOf="@id/current_title"
-            app:layout_constraintEnd_toEndOf="@+id/current_title"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="@string/fail"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/voltage_title"
-            app:layout_constraintTop_toBottomOf="@+id/current_content"
-            app:layout_constraintStart_toStartOf="@+id/power_factor_title"
-            app:layout_constraintEnd_toEndOf="@+id/power_factor_title"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/voltage_content"
-            app:layout_constraintTop_toBottomOf="@+id/voltage_title"
-            app:layout_constraintStart_toStartOf="@+id/voltage_title"
-            app:layout_constraintEnd_toEndOf="@+id/voltage_title"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="@string/fail"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/download_on_title"
-            app:layout_constraintTop_toBottomOf="@+id/load_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/download_on_content"
-            android:layout_marginTop="20dp"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            android:gravity="center"
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/download_on_content"
-            app:layout_constraintTop_toTopOf="@id/download_on_title"
-            app:layout_constraintBottom_toBottomOf="@+id/download_on_title"
-            app:layout_constraintStart_toEndOf="@+id/download_on_title"
-            app:layout_constraintEnd_toStartOf="@+id/manufacturer_name_title"
-            android:gravity="center"
-            android:layout_marginHorizontal="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="@string/fail"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/nfc_tag_id_title"
-            app:layout_constraintTop_toBottomOf="@+id/download_on_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/nfc_tag_id_content"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/nfc_tag_id_content"
-            app:layout_constraintTop_toTopOf="@id/nfc_tag_id_title"
-            app:layout_constraintBottom_toBottomOf="@+id/nfc_tag_id_title"
-            app:layout_constraintStart_toEndOf="@+id/nfc_tag_id_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center"
-            android:layout_marginHorizontal="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="@string/fail"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/device_id_title"
-            app:layout_constraintTop_toBottomOf="@+id/nfc_tag_id_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/device_id_content"
-            android:gravity="center"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            android:layout_marginTop="20dp"
-            android:onClick="onClick"/>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/device_id_content"
-            app:layout_constraintTop_toTopOf="@+id/device_id_title"
-            app:layout_constraintBottom_toBottomOf="@+id/device_id_title"
-            app:layout_constraintStart_toEndOf="@+id/device_id_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center"
-            android:layout_marginHorizontal="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="@string/fail"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/manufacturer_name_title"
-            app:layout_constraintTop_toTopOf="@+id/download_on_title"
-            app:layout_constraintBottom_toBottomOf="@+id/download_on_title"
-            app:layout_constraintStart_toEndOf="@+id/download_on_content"
-            app:layout_constraintEnd_toStartOf="@+id/manufacturer_name_content"
-            android:gravity="center"
-            android:textSize="10dp"
-            android:onClick="onClick"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/manufacturer_name_content"
-            app:layout_constraintTop_toTopOf="@+id/manufacturer_name_title"
-            app:layout_constraintBottom_toBottomOf="@+id/manufacturer_name_title"
-            app:layout_constraintStart_toEndOf="@+id/manufacturer_name_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="@string/fail"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/model_number_title"
-            app:layout_constraintTop_toBottomOf="@+id/device_id_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/model_number_content"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/model_number_content"
-            app:layout_constraintTop_toTopOf="@id/model_number_title"
-            app:layout_constraintBottom_toBottomOf="@+id/model_number_title"
-            app:layout_constraintStart_toEndOf="@id/model_number_title"
-            app:layout_constraintEnd_toStartOf="@+id/serial_number_title"
-            android:gravity="center"
-            android:layout_marginStart="10dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:text="@string/fail"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/serial_number_title"
-            app:layout_constraintTop_toTopOf="@+id/model_number_title"
-            app:layout_constraintBottom_toBottomOf="@+id/model_number_title"
-            app:layout_constraintStart_toEndOf="@+id/model_number_content"
-            app:layout_constraintEnd_toStartOf="@+id/serial_number_content"
-            android:layout_marginStart="20dp"
-            android:gravity="center"
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/serial_number_content"
-            app:layout_constraintTop_toTopOf="@+id/model_number_title"
-            app:layout_constraintBottom_toBottomOf="@+id/model_number_title"
-            app:layout_constraintStart_toEndOf="@+id/serial_number_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="@string/fail"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/firmware_version_title"
-            app:layout_constraintTop_toBottomOf="@+id/model_number_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/firmware_version_content"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/firmware_version_content"
-            app:layout_constraintTop_toTopOf="@+id/firmware_version_title"
-            app:layout_constraintBottom_toBottomOf="@+id/firmware_version_title"
-            app:layout_constraintStart_toEndOf="@+id/firmware_version_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center"
-            android:layout_marginHorizontal="10dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:text="@string/fail"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/hardware_version_title"
-            app:layout_constraintTop_toBottomOf="@+id/firmware_version_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/hardware_version_content"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/hardware_version_content"
-            app:layout_constraintTop_toTopOf="@+id/hardware_version_title"
-            app:layout_constraintBottom_toBottomOf="@+id/hardware_version_title"
-            app:layout_constraintStart_toEndOf="@+id/hardware_version_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginHorizontal="10dp"
-            android:text="@string/fail"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/software_version_title"
-            app:layout_constraintTop_toBottomOf="@+id/hardware_version_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/software_version_content"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/software_version_content"
-            app:layout_constraintTop_toTopOf="@+id/software_version_title"
-            app:layout_constraintBottom_toBottomOf="@+id/software_version_title"
-            app:layout_constraintStart_toEndOf="@+id/software_version_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginHorizontal="10dp"
-            android:text="@string/fail"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/hardware_status_title"
-            app:layout_constraintTop_toBottomOf="@+id/software_version_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/hardware_status_content"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:onClick="onClick" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/hardware_status_content"
-            app:layout_constraintTop_toTopOf="@+id/hardware_status_title"
-            app:layout_constraintBottom_toBottomOf="@+id/hardware_status_title"
-            app:layout_constraintStart_toEndOf="@+id/hardware_status_title"
-            app:layout_constraintEnd_toStartOf="@+id/machine_status_title"
-            android:gravity="center"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="@string/fail"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/machine_status_title"
-            app:layout_constraintTop_toTopOf="@+id/hardware_status_title"
-            app:layout_constraintBottom_toBottomOf="@+id/hardware_status_title"
-            app:layout_constraintStart_toEndOf="@+id/hardware_status_content"
-            app:layout_constraintEnd_toStartOf="@+id/machine_status_content"
-            android:gravity="center"
-            android:layout_marginHorizontal="10dp"
-            android:textColor="@color/black"
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/machine_status_content"
-            app:layout_constraintTop_toTopOf="@+id/machine_status_title"
-            app:layout_constraintBottom_toBottomOf="@+id/machine_status_title"
-            app:layout_constraintStart_toEndOf="@+id/machine_status_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="@string/fail"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/software_status_title"
-            app:layout_constraintTop_toBottomOf="@+id/hardware_status_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/software_status_content"
-            android:layout_marginVertical="10dp"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            android:gravity="center"
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/software_status_content"
-            app:layout_constraintTop_toTopOf="@+id/software_status_title"
-            app:layout_constraintBottom_toBottomOf="@+id/software_status_title"
-            app:layout_constraintStart_toEndOf="@+id/software_status_title"
-            app:layout_constraintEnd_toStartOf="@+id/meter_version_title"
-            android:gravity="center"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="@string/fail"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/meter_version_title"
-            app:layout_constraintTop_toTopOf="@+id/software_status_title"
-            app:layout_constraintBottom_toBottomOf="@+id/software_status_title"
-            app:layout_constraintStart_toEndOf="@+id/software_status_content"
-            app:layout_constraintEnd_toStartOf="@+id/meter_version_content"
-            android:gravity="center"
-            android:layout_marginHorizontal="10dp"
-            android:textColor="@color/black"
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/meter_version_content"
-            app:layout_constraintTop_toTopOf="@+id/meter_version_title"
-            app:layout_constraintBottom_toBottomOf="@+id/meter_version_title"
-            app:layout_constraintStart_toEndOf="@+id/meter_version_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="@string/fail"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/error_code_title"
-            app:layout_constraintTop_toBottomOf="@+id/software_status_title"
-            app:layout_constraintStart_toStartOf="@+id/software_status_title"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:onClick="onClick"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/error_code_content"
-            app:layout_constraintTop_toTopOf="@+id/error_code_title"
-            app:layout_constraintBottom_toBottomOf="@+id/error_code_title"
-            app:layout_constraintStart_toEndOf="@+id/error_code_title"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginStart="10dp"
-            android:text="@string/fail"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/error_code_title"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:id="@+id/layout_power_read"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_percent="0.9"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="30dp"
+            app:layout_constraintEnd_toStartOf="@+id/power_on_title"
+            app:layout_constraintBottom_toBottomOf="@+id/power_on_title"
             android:background="@drawable/charginglagencyborder">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/charging_latency_read_title"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/charging_latency_read_content"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintVertical_chainStyle="packed"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:onClick="onClick"
-                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/charging_latency_read_content"
-                app:layout_constraintTop_toTopOf="@+id/charging_latency_read_title"
-                app:layout_constraintBottom_toBottomOf="@+id/charging_latency_read_title"
-                app:layout_constraintStart_toEndOf="@+id/charging_latency_read_title"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/power_read_content"
+                android:gravity="center"
                 android:text="@string/fail"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/power_read"
+                android:layout_marginBottom="5dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/power_read"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:onClick="onClick"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/power_on_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toStartOf="@+id/power_on_content"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/layout_power_read"
+            app:layout_constraintTop_toBottomOf="@+id/peripheral_pcp_title" />
+
+        <TextView
+            android:id="@+id/power_on_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/power_on_title"
+            app:layout_constraintEnd_toStartOf="@+id/power_off_title"
+            app:layout_constraintStart_toEndOf="@+id/power_on_title"
+            app:layout_constraintTop_toTopOf="@+id/power_on_title" />
+
+        <Button
+            android:id="@+id/power_off_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintBottom_toBottomOf="@+id/power_on_title"
+            app:layout_constraintEnd_toStartOf="@+id/power_off_content"
+            app:layout_constraintStart_toEndOf="@+id/power_on_content"
+            app:layout_constraintTop_toTopOf="@+id/power_on_title" />
+
+        <TextView
+            android:id="@+id/power_off_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/power_off_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/power_off_title"
+            app:layout_constraintTop_toTopOf="@+id/power_off_title" />
+
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/power_on_title" />
+
+        <Button
+            android:id="@+id/set_time_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toStartOf="@+id/set_time_content"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/power_on_title" />
+
+        <TextView
+            android:id="@+id/set_time_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/set_time_title"
+            app:layout_constraintEnd_toStartOf="@+id/get_time_title"
+            app:layout_constraintStart_toEndOf="@+id/set_time_title"
+            app:layout_constraintTop_toTopOf="@+id/set_time_title" />
+
+        <Button
+            android:id="@+id/get_time_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/set_time_title"
+            app:layout_constraintEnd_toStartOf="@+id/get_time_content"
+            app:layout_constraintStart_toEndOf="@+id/set_time_content"
+            app:layout_constraintTop_toTopOf="@+id/set_time_title" />
+
+        <TextView
+            android:id="@+id/get_time_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/get_time_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/get_time_title"
+            app:layout_constraintTop_toTopOf="@+id/get_time_title" />
+
+
+        <Button
+            android:id="@+id/current_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toEndOf="@+id/power_factor_title"
+            app:layout_constraintStart_toStartOf="@+id/power_factor_title"
+            app:layout_constraintTop_toBottomOf="@+id/set_time_title" />
+
+        <TextView
+            android:id="@+id/current_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/current_title"
+            app:layout_constraintStart_toStartOf="@id/current_title"
+            app:layout_constraintTop_toBottomOf="@+id/current_title" />
+
+        <Button
+            android:id="@+id/voltage_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toEndOf="@+id/power_factor_title"
+            app:layout_constraintStart_toStartOf="@+id/power_factor_title"
+            app:layout_constraintTop_toBottomOf="@+id/current_content" />
+
+        <TextView
+            android:id="@+id/voltage_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/voltage_title"
+            app:layout_constraintStart_toStartOf="@+id/voltage_title"
+            app:layout_constraintTop_toBottomOf="@+id/voltage_title" />
+
+        <Button
+            android:id="@+id/download_on_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toStartOf="@+id/download_on_content"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/load_title" />
+
+        <TextView
+            android:id="@+id/download_on_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/download_on_title"
+            app:layout_constraintEnd_toStartOf="@+id/manufacturer_name_title"
+            app:layout_constraintStart_toEndOf="@+id/download_on_title"
+            app:layout_constraintTop_toTopOf="@id/download_on_title" />
+
+        <Button
+            android:id="@+id/nfc_tag_id_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toStartOf="@+id/nfc_tag_id_content"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/download_on_title" />
+
+        <TextView
+            android:id="@+id/nfc_tag_id_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/nfc_tag_id_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/nfc_tag_id_title"
+            app:layout_constraintTop_toTopOf="@id/nfc_tag_id_title" />
+
+        <Button
+            android:id="@+id/device_id_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toStartOf="@+id/device_id_content"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nfc_tag_id_content" />
+
+
+        <TextView
+            android:id="@+id/device_id_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/device_id_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/device_id_title"
+            app:layout_constraintTop_toTopOf="@+id/device_id_title" />
+
+        <Button
+            android:id="@+id/manufacturer_name_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/download_on_title"
+            app:layout_constraintEnd_toStartOf="@+id/manufacturer_name_content"
+            app:layout_constraintStart_toEndOf="@+id/download_on_content"
+            app:layout_constraintTop_toTopOf="@+id/download_on_title" />
+
+        <TextView
+            android:id="@+id/manufacturer_name_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/manufacturer_name_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/manufacturer_name_title"
+            app:layout_constraintTop_toTopOf="@+id/manufacturer_name_title" />
+
+        <Button
+            android:id="@+id/model_number_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toStartOf="@+id/model_number_content"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/device_id_title" />
+
+        <TextView
+            android:id="@+id/model_number_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/model_number_title"
+            app:layout_constraintEnd_toStartOf="@+id/serial_number_title"
+            app:layout_constraintStart_toEndOf="@id/model_number_title"
+            app:layout_constraintTop_toTopOf="@id/model_number_title" />
+
+        <Button
+            android:id="@+id/serial_number_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintBottom_toBottomOf="@+id/model_number_title"
+            app:layout_constraintEnd_toStartOf="@+id/serial_number_content"
+            app:layout_constraintStart_toEndOf="@+id/model_number_content"
+            app:layout_constraintTop_toTopOf="@+id/model_number_title" />
+
+        <TextView
+            android:id="@+id/serial_number_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/model_number_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/serial_number_title"
+            app:layout_constraintTop_toTopOf="@+id/model_number_title" />
+
+        <Button
+            android:id="@+id/firmware_version_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toStartOf="@+id/firmware_version_content"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@+id/model_number_title" />
+
+        <TextView
+            android:id="@+id/firmware_version_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/firmware_version_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/firmware_version_title"
+            app:layout_constraintTop_toTopOf="@+id/firmware_version_title" />
+
+        <Button
+            android:id="@+id/hardware_version_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toStartOf="@+id/hardware_version_content"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/firmware_version_title" />
+
+        <TextView
+            android:id="@+id/hardware_version_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/hardware_version_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/hardware_version_title"
+            app:layout_constraintTop_toTopOf="@+id/hardware_version_title" />
+
+        <Button
+            android:id="@+id/software_version_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toStartOf="@+id/software_version_content"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hardware_version_title" />
+
+        <TextView
+            android:id="@+id/software_version_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/software_version_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/software_version_title"
+            app:layout_constraintTop_toTopOf="@+id/software_version_title" />
+
+        <Button
+            android:id="@+id/hardware_status_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toStartOf="@+id/hardware_status_content"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/software_version_title" />
+
+        <TextView
+            android:id="@+id/hardware_status_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/hardware_status_title"
+            app:layout_constraintEnd_toStartOf="@+id/machine_status_title"
+            app:layout_constraintStart_toEndOf="@+id/hardware_status_title"
+            app:layout_constraintTop_toTopOf="@+id/hardware_status_title" />
+
+        <Button
+            android:id="@+id/machine_status_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/hardware_status_title"
+            app:layout_constraintEnd_toStartOf="@+id/machine_status_content"
+            app:layout_constraintStart_toEndOf="@+id/hardware_status_content"
+            app:layout_constraintTop_toTopOf="@+id/hardware_status_title" />
+
+        <TextView
+            android:id="@+id/machine_status_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/machine_status_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/machine_status_title"
+            app:layout_constraintTop_toTopOf="@+id/machine_status_title" />
+
+        <Button
+            android:id="@+id/software_status_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toStartOf="@+id/software_status_content"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hardware_status_title" />
+
+        <TextView
+            android:id="@+id/software_status_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/software_status_title"
+            app:layout_constraintEnd_toStartOf="@+id/meter_version_title"
+            app:layout_constraintStart_toEndOf="@+id/software_status_title"
+            app:layout_constraintTop_toTopOf="@+id/software_status_title" />
+
+        <Button
+            android:id="@+id/meter_version_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/software_status_title"
+            app:layout_constraintEnd_toStartOf="@+id/meter_version_content"
+            app:layout_constraintStart_toEndOf="@+id/software_status_content"
+            app:layout_constraintTop_toTopOf="@+id/software_status_title" />
+
+        <TextView
+            android:id="@+id/meter_version_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/meter_version_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/meter_version_title"
+            app:layout_constraintTop_toTopOf="@+id/meter_version_title" />
+
+        <Button
+            android:id="@+id/error_code_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            app:layout_constraintStart_toStartOf="@+id/software_status_title"
+            app:layout_constraintTop_toBottomOf="@+id/software_status_title" />
+
+        <TextView
+            android:id="@+id/error_code_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="@string/fail"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/error_code_title"
+            app:layout_constraintStart_toEndOf="@+id/error_code_title"
+            app:layout_constraintTop_toTopOf="@+id/error_code_title" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_aa26"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/charginglagencyborder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/error_code_title"
+            app:layout_constraintWidth_percent="0.9">
+
+            <Button
+                android:id="@+id/charging_latency_read_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/charging_latency_read_content"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/charging_latency_read_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:gravity="center"
+                android:text="@string/fail"
+                android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                app:layout_constraintBottom_toBottomOf="@+id/charging_latency_read_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/charging_latency_read_title"
+                app:layout_constraintTop_toTopOf="@+id/charging_latency_read_title" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginHorizontal="10dp"
                 android:background="@color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/charging_latency_read_title"
                 app:layout_constraintBottom_toTopOf="@+id/charging_latency_plus"
-                android:layout_marginHorizontal="10dp"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/charging_latency_read_title" />
+
+            <EditText
+                android:id="@+id/charging_latency_input"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/charginglagencyborder"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:textColor="@color/black"
+                android:gravity="center"
+                app:layout_constraintEnd_toStartOf="@+id/charging_latency_input_content"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/charging_latency_read_title"
+                android:hint="0"
+                android:textColorHint="@color/grey"/>
+
+            <TextView
+                android:id="@+id/charging_latency_input_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="輸入框數值*5分鐘後開始充電\n不輸入則為0"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/charging_latency_input"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/charging_latency_input"
+                app:layout_constraintTop_toTopOf="@+id/charging_latency_input" />
 
 
             <Button
+                android:id="@+id/charging_latency_plus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/charging_latency_plus"
-                app:layout_constraintTop_toBottomOf="@+id/charging_latency_read_title"
+                android:layout_marginTop="20dp"
+                android:onClick="onClick"
+                android:text="+"
+                android:textColor="@color/black"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/charging_latency_send_title"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/charging_latency_show_number"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/black"
-                android:text="+"
-                android:onClick="onClick"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/charging_latency_read_title" />
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/charging_latency_show_number"
-                app:layout_constraintTop_toTopOf="@+id/charging_latency_plus"
-                app:layout_constraintBottom_toBottomOf="@+id/charging_latency_plus"
-                app:layout_constraintStart_toEndOf="@+id/charging_latency_plus"
-                app:layout_constraintEnd_toStartOf="@+id/charging_latency_minus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/charging_latency_plus"
+                app:layout_constraintEnd_toStartOf="@+id/charging_latency_minus"
+                app:layout_constraintStart_toEndOf="@+id/charging_latency_plus"
+                app:layout_constraintTop_toTopOf="@+id/charging_latency_plus" />
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/charging_latency_minus"
-                app:layout_constraintTop_toTopOf="@+id/charging_latency_plus"
-                app:layout_constraintBottom_toBottomOf="@id/charging_latency_plus"
-                app:layout_constraintStart_toEndOf="@+id/charging_latency_show_number"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:textColor="@color/black"
-                android:text="-"
-                android:onClick="onClick"/>
-
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/charging_latency_send_title"
-                app:layout_constraintTop_toBottomOf="@+id/charging_latency_plus"
-                app:layout_constraintStart_toStartOf="@+id/charging_latency_plus"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="20dp"
+                android:onClick="onClick"
+                android:text="-"
                 android:textColor="@color/black"
-                android:onClick="onClick"/>
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/charging_latency_plus"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/charging_latency_show_number"
+                app:layout_constraintTop_toTopOf="@+id/charging_latency_plus" />
+
+            <Button
+                android:id="@+id/charging_latency_send_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:onClick="onClick"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/charging_latency_send_content"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/charging_latency_input" />
 
             <TextView
+                android:id="@+id/charging_latency_send_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/charging_latency_send_content"
-                app:layout_constraintStart_toEndOf="@+id/charging_latency_send_title"
-                app:layout_constraintTop_toTopOf="@+id/charging_latency_send_title"
-                app:layout_constraintBottom_toBottomOf="@+id/charging_latency_send_title"
+                android:layout_marginStart="10dp"
                 android:text="@string/fail"
                 android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/charging_latency_send_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/charging_latency_send_title"
+                app:layout_constraintTop_toTopOf="@+id/charging_latency_send_title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_aa27"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/charginglagencyborder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_aa26"
+            app:layout_constraintWidth_percent="0.9">
+
+            <TextView
+                android:id="@+id/plan_charging_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Plan charging\n不輸入則為0"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/plan_charging_latency_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Latency Time"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/plan_charging_working_title"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/plan_charging_title" />
+
+            <TextView
+                android:id="@+id/plan_charging_working_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:text="Charging Time"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/plan_charging_latency_title"
+                app:layout_constraintTop_toTopOf="@+id/plan_charging_latency_title" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@+id/latency_0"
+                app:layout_constraintBottom_toBottomOf="@+id/latency_0"
+                app:layout_constraintEnd_toStartOf="@+id/latency_0"
+                android:text="第一段"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginEnd="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@+id/latency_1"
+                app:layout_constraintBottom_toBottomOf="@+id/latency_1"
+                app:layout_constraintEnd_toStartOf="@+id/latency_1"
+                android:text="第二段"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginEnd="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@+id/latency_2"
+                app:layout_constraintBottom_toBottomOf="@+id/latency_2"
+                app:layout_constraintEnd_toStartOf="@+id/latency_2"
+                android:text="第三段"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginEnd="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@+id/latency_3"
+                app:layout_constraintBottom_toBottomOf="@+id/latency_3"
+                app:layout_constraintEnd_toStartOf="@+id/latency_3"
+                android:text="第四段"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginEnd="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@+id/latency_4"
+                app:layout_constraintBottom_toBottomOf="@+id/latency_4"
+                app:layout_constraintEnd_toStartOf="@+id/latency_4"
+                android:text="第五段"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginEnd="10dp"/>
+
+            <EditText
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:id="@+id/latency_0"
+                app:layout_constraintStart_toStartOf="@+id/plan_charging_latency_title"
+                app:layout_constraintEnd_toEndOf="@+id/plan_charging_latency_title"
+                app:layout_constraintTop_toBottomOf="@+id/plan_charging_latency_title"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:hint="0"
+                android:textColorHint="@color/grey"/>
+            <EditText
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:id="@+id/latency_1"
+                app:layout_constraintStart_toStartOf="@+id/plan_charging_latency_title"
+                app:layout_constraintEnd_toEndOf="@+id/plan_charging_latency_title"
+                app:layout_constraintTop_toBottomOf="@+id/latency_0"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:hint="0"
+                android:textColorHint="@color/grey"/>
+            <EditText
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:id="@+id/latency_2"
+                app:layout_constraintStart_toStartOf="@+id/plan_charging_latency_title"
+                app:layout_constraintEnd_toEndOf="@+id/plan_charging_latency_title"
+                app:layout_constraintTop_toBottomOf="@+id/latency_1"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:hint="0"
+                android:textColorHint="@color/grey"/>
+            <EditText
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:id="@+id/latency_3"
+                app:layout_constraintStart_toStartOf="@+id/plan_charging_latency_title"
+                app:layout_constraintEnd_toEndOf="@+id/plan_charging_latency_title"
+                app:layout_constraintTop_toBottomOf="@+id/latency_2"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:hint="0"
+                android:textColorHint="@color/grey"/>
+            <EditText
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:id="@+id/latency_4"
+                app:layout_constraintStart_toStartOf="@+id/plan_charging_latency_title"
+                app:layout_constraintEnd_toEndOf="@+id/plan_charging_latency_title"
+                app:layout_constraintTop_toBottomOf="@+id/latency_3"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:hint="0"
+                android:textColorHint="@color/grey"/>
+
+
+            <EditText
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:id="@+id/charging_0"
+                app:layout_constraintStart_toStartOf="@+id/plan_charging_working_title"
+                app:layout_constraintEnd_toEndOf="@+id/plan_charging_working_title"
+                app:layout_constraintTop_toBottomOf="@+id/plan_charging_working_title"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:hint="0"
+                android:textColorHint="@color/grey"/>
+            <EditText
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:id="@+id/charging_1"
+                app:layout_constraintStart_toStartOf="@+id/plan_charging_working_title"
+                app:layout_constraintEnd_toEndOf="@+id/plan_charging_working_title"
+                app:layout_constraintTop_toBottomOf="@+id/charging_0"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:hint="0"
+                android:textColorHint="@color/grey"/>
+            <EditText
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:id="@+id/charging_2"
+                app:layout_constraintStart_toStartOf="@+id/plan_charging_working_title"
+                app:layout_constraintEnd_toEndOf="@+id/plan_charging_working_title"
+                app:layout_constraintTop_toBottomOf="@+id/charging_1"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:hint="0"
+                android:textColorHint="@color/grey"/>
+            <EditText
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:id="@+id/charging_3"
+                app:layout_constraintStart_toStartOf="@+id/plan_charging_working_title"
+                app:layout_constraintEnd_toEndOf="@+id/plan_charging_working_title"
+                app:layout_constraintTop_toBottomOf="@+id/charging_2"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:hint="0"
+                android:textColorHint="@color/grey"/>
+            <EditText
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:id="@+id/charging_4"
+                app:layout_constraintStart_toStartOf="@+id/plan_charging_working_title"
+                app:layout_constraintEnd_toEndOf="@+id/plan_charging_working_title"
+                app:layout_constraintTop_toBottomOf="@+id/charging_3"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:hint="0"
+                android:textColorHint="@color/grey"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/latency_0"
+                app:layout_constraintTop_toTopOf="@+id/latency_0"
+                app:layout_constraintBottom_toBottomOf="@+id/latency_0"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="*5(mins)"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/latency_1"
+                app:layout_constraintTop_toTopOf="@+id/latency_1"
+                app:layout_constraintBottom_toBottomOf="@+id/latency_1"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="*5(mins)"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/latency_2"
+                app:layout_constraintTop_toTopOf="@+id/latency_2"
+                app:layout_constraintBottom_toBottomOf="@+id/latency_2"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="*5(mins)"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/latency_3"
+                app:layout_constraintTop_toTopOf="@+id/latency_3"
+                app:layout_constraintBottom_toBottomOf="@+id/latency_3"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="*5(mins)"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/latency_4"
+                app:layout_constraintTop_toTopOf="@+id/latency_4"
+                app:layout_constraintBottom_toBottomOf="@+id/latency_4"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="*5(mins)"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/charging_0"
+                app:layout_constraintTop_toTopOf="@+id/charging_0"
+                app:layout_constraintBottom_toBottomOf="@+id/charging_0"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="*5(mins)"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/charging_1"
+                app:layout_constraintTop_toTopOf="@+id/charging_1"
+                app:layout_constraintBottom_toBottomOf="@+id/charging_1"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="*5(mins)"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/charging_2"
+                app:layout_constraintTop_toTopOf="@+id/charging_2"
+                app:layout_constraintBottom_toBottomOf="@+id/charging_2"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="*5(mins)"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/charging_3"
+                app:layout_constraintTop_toTopOf="@+id/charging_3"
+                app:layout_constraintBottom_toBottomOf="@+id/charging_3"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="*5(mins)"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/charging_4"
+                app:layout_constraintTop_toTopOf="@+id/charging_4"
+                app:layout_constraintBottom_toBottomOf="@+id/charging_4"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="*5(mins)"/>
+
+            <Button
+                android:id="@+id/plan_charging_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:onClick="onClick"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/plan_charging_send_result"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/charging_4" />
+            <TextView
+                android:id="@+id/plan_charging_send_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                />
-
-
-
+                android:text="@string/fail"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/plan_charging_send"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/plan_charging_send"
+                app:layout_constraintTop_toTopOf="@+id/plan_charging_send" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_aa28"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/charginglagencyborder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_aa27"
+            app:layout_constraintWidth_percent="0.9">
+
+            <Button
+                android:id="@+id/charging_record_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="AA28 Charging Record Report"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:onClick="onClick"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/record_recyclerview"
+                app:layout_constraintTop_toBottomOf="@+id/charging_record_report"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginBottom="20dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -1,4 +1,4 @@
-package com.example.testpdu
+package com.example.testpduv33
 
 class GattAttributes {
 
@@ -47,6 +47,8 @@ class GattAttributes {
         const val read_recorded_data = "0000aa24-0000-1000-8000-00805f9b34fb"
         const val nfc_tag_id = "0000aa25-0000-1000-8000-00805f9b34fb"
         const val charging_latency = "0000aa26-0000-1000-8000-00805f9b34fb"
+        const val plan_charging="0000aa27-0000-1000-8000-00805f9b34fb"
+        const val read_all_charging_record="0000aa28-0000-1000-8000-00805f9b34fb"
 
         const val hardware_status = "0000aa31-0000-1000-8000-00805f9b34fb"
         const val software_status = "0000aa32-0000-1000-8000-00805f9b34fb"
@@ -77,6 +79,7 @@ class GattAttributes {
 
         const val mPowerOn="power_on"
         const val mPowerOff="power_off"
+        const val mPowerRead="power_read"
 
         const val mSetTime="set_time"
         const val mGetTime="get_time"
@@ -86,6 +89,9 @@ class GattAttributes {
         const val mNfcTagId="nfc_tag_id"
         const val mChargingLatencyRead="charging_latency_read"
         const val mChargingLatencySend="charging_latency_send"
+        const val mPlanChargingRead="plan_charging_read"
+        const val mPlanChargingSend="plan_charging_send"
+        const val mAllChargingReport="all_charging_report"
 
         const val mHardwareStatus="hardware_status"
         const val mSoftwareStatus="software_status"
@@ -93,6 +99,12 @@ class GattAttributes {
 
         const val mMachineStatus="machine_status"
         const val mMeterVersion="meter_version"
+
+        const val mPlan="plan"
+        const val mStartTime="start_time"
+        const val mEndTime="end_time"
+        const val mConsumption="consumption"
+        const val mNone="none"
 
     }
 

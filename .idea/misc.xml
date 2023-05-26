@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/552/AndroidStudioProjects/TestPDU/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/552/AndroidStudioProjects/TestPDU/app/src/main/res/layout/connect_activity.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/552/AndroidStudioProjects/TestPDU/app/src/main/res/layout/listitem_device.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/552/AndroidStudioProjects/TestPDU_V33/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/552/AndroidStudioProjects/TestPDU_V33/app/src/main/res/layout/connect_activity.xml" value="0.22" />
+        <entry key="..\:/Users/552/AndroidStudioProjects/TestPDU_V33/app/src/main/res/layout/listitem_device.xml" value="0.1" />
+        <entry key="..\:/Users/552/AndroidStudioProjects/TestPDU_V33/app/src/main/res/layout/report_list.xml" value="0.5" />
+        <entry key="..\:/Users/552/FlutterProjects/TestPDU/app/src/main/res/layout/activity_main.xml" value="0.21467391304347827" />
+        <entry key="..\:/Users/552/FlutterProjects/TestPDU/app/src/main/res/layout/connect_activity.xml" value="0.17806484295845998" />
+        <entry key="..\:/Users/552/FlutterProjects/TestPDU/app/src/main/res/layout/listitem_device.xml" value="0.21467391304347827" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

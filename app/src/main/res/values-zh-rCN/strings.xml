@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">F116工程</string>
+    <string name="app_name">F116 V33 工程</string>
     <string name="need_fine_permission">需要位置權限</string>
     <string name="need_fine_permission_to_use_ble">需要位置權限來開啟藍芽</string>
     <string name="ok_i_know">好的，知道了</string>
@@ -51,4 +51,7 @@
     <string name="error_code">错误码</string>
     <string name="machine_status">机器状态</string>
     <string name="meter_version">meter\n参数版本</string>
+
+    <string name="its_on">充电中</string>
+    <string name="its_off">未充电</string>
 </resources>

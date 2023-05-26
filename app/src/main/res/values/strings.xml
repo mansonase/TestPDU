@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">F116 Engineer</string>
+    <string name="app_name">F116 V33 Engineer</string>
     <string name="need_fine_permission">Need Location Permission</string>
     <string name="need_fine_permission_to_use_ble">Ask for BLE function</string>
     <string name="ok_i_know">OK, I know</string>
@@ -51,5 +51,10 @@
     <string name="error_code">Error Code</string>
     <string name="machine_status">Machine\nStatus</string>
     <string name="meter_version">Meter\nVersion</string>
+
+    <string name="read_power" translatable="false">Read\nPower</string>
+
+    <string name="its_on">It\'s ON</string>
+    <string name="its_off">It\'s OFF</string>
     
 </resources>

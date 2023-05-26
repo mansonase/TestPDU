@@ -1,4 +1,4 @@
-package com.example.testpdu
+package com.example.testpduv33
 
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
@@ -24,7 +24,6 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.listitem_device.view.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -289,14 +288,18 @@ class MainActivity : AppCompatActivity() {
 
             if (device.name==null)return
 
-            if (device.name.substring(0,6).trim()!="eCloud")return
+            //if ((device.name.substring(0,6).trim()!="eCloud")||(device.name.substring(0,4).trim()!="F100"))return
+            if ((device.name.contains("eCloud"))||(device.name.contains("F100"))) {
 
-            if (!mLeDevices.contains(device)){
-                mLeDevices.add(device)
-                mRssiList.add(rssi)
-                Log.d("testpdu", " address : ${device.address}, name : ${device.name}, rssi: $rssi")
+                if (!mLeDevices.contains(device)) {
+                    mLeDevices.add(device)
+                    mRssiList.add(rssi)
+                    Log.d(
+                        "testpdu",
+                        " address : ${device.address}, name : ${device.name}, rssi: $rssi"
+                    )
+                }
             }
-
         }
 
 
