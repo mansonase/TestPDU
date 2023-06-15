@@ -403,9 +403,11 @@ class BluetoothLeService():Service() {
                 }
                 GattAttributes.nfc_tag_id->{
 
-                    val data="0x "+characteristic.value.toHexString()
+                    val data="0x "+ characteristic.value.toHexString()
+                    val ascii=characteristic.value.toString(Charsets.US_ASCII)
+                    val combined="$data\n$ascii"
 
-                    intent.putExtra(EXTRA_DATA, data)
+                    intent.putExtra(EXTRA_DATA, combined)
                     intent.putExtra(CHARACTERISTIC,GattAttributes.mNfcTagId)
 
                     Log.d(TAG,"new $data")
