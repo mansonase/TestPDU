@@ -40,6 +40,7 @@ class GattAttributes {
         const val power_factor = "0000aa14-0000-1000-8000-00805f9b34fb"
         const val load = "0000aa15-0000-1000-8000-00805f9b34fb"
         const val load_detected = "0000aa16-0000-1000-8000-00805f9b34fb"
+        const val control_feedback="0000aa17-0000-1000-8000-00805f9b34fb"
 
         const val activate_power = "0000aa21-0000-1000-8000-00805f9b34fb"
         const val set_time = "0000aa22-0000-1000-8000-00805f9b34fb"
