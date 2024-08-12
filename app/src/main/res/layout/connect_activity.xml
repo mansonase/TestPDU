@@ -165,6 +165,21 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recorded_data_id"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recorded_data_button"
+                app:layout_constraintBottom_toTopOf="@+id/recorded_data_start_time_title"
+                android:text="ID: null"
+                android:textColor="@color/black"
+                android:textSize="8dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                />
+
+            <TextView
                 android:id="@+id/recorded_data_start_time_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -176,7 +191,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/recorded_data_start_time_content"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recorded_data_button" />
+                app:layout_constraintTop_toBottomOf="@+id/recorded_data_id" />
 
             <TextView
                 android:id="@+id/recorded_data_start_time_content"
@@ -342,11 +357,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="10dp"
                 android:text="None: "
                 android:textColor="@color/black"
                 android:textSize="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/recorded_data_clear"
                 app:layout_constraintEnd_toStartOf="@+id/recorded_data_none_content"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
@@ -362,6 +377,17 @@
                 app:layout_constraintBottom_toBottomOf="@+id/recorded_data_none_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/recorded_data_none_title" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recorded_data_clear"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recorded_data_none_title"
+                android:layout_marginBottom="20dp"
+                android:onClick="onClick"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -417,6 +443,33 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/load_detected_title"
             app:layout_constraintTop_toTopOf="@+id/load_detected_title" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/command_feedback_title"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/load_detected_title"
+            app:layout_constraintBottom_toTopOf="@+id/command_feedback_content"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:layout_marginTop="10dp"
+            android:onClick="onClick" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/command_feedback_content"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/command_feedback_title"
+            app:layout_constraintBottom_toTopOf="@+id/download_on_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"/>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -626,7 +679,7 @@
             app:layout_constraintEnd_toStartOf="@+id/download_on_content"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/load_title" />
+            app:layout_constraintTop_toBottomOf="@+id/command_feedback_content" />
 
         <TextView
             android:id="@+id/download_on_content"
@@ -669,6 +722,32 @@
             app:layout_constraintTop_toTopOf="@id/nfc_tag_id_title" />
 
         <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/create_id_title"
+            android:textSize="10dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/create_id_content"
+            app:layout_constraintTop_toBottomOf="@+id/nfc_tag_id_title"
+            app:layout_constraintBottom_toTopOf="@+id/device_id_title"
+            app:layout_constraintHorizontal_chainStyle="packed"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/create_id_content"
+            android:gravity="center"
+            android:text="empty"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/create_id_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/create_id_title"
+            app:layout_constraintBottom_toBottomOf="@+id/create_id_title" />
+        <Button
             android:id="@+id/device_id_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -678,7 +757,7 @@
             app:layout_constraintEnd_toStartOf="@+id/device_id_content"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nfc_tag_id_content" />
+            app:layout_constraintTop_toBottomOf="@+id/create_id_title" />
 
 
         <TextView
@@ -1032,11 +1111,13 @@
 
             <EditText
                 android:id="@+id/charging_latency_input"
-                android:layout_width="70dp"
+                android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/charginglagencyborder"
-                android:inputType="numberDecimal"
+                android:inputType="textCapWords"
+                android:digits="ABCDEFabcdef0123456789"
+                android:maxLength="6"
                 android:lines="1"
                 android:textColor="@color/black"
                 android:gravity="center"
@@ -1044,7 +1125,7 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/charging_latency_read_title"
-                android:hint="0"
+                android:hint="000000"
                 android:textColorHint="@color/grey"/>
 
             <TextView
@@ -1052,7 +1133,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="輸入框數值*5分鐘後開始充電\n不輸入則為0"
+                android:text="請輸入6位數字,,不輸入則為0,\n後開始充電"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/charging_latency_input"
@@ -1129,356 +1210,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_aa27"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/charginglagencyborder"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_aa26"
-            app:layout_constraintWidth_percent="0.9">
-
-            <TextView
-                android:id="@+id/plan_charging_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Plan charging\n不輸入則為0"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/plan_charging_latency_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Latency Time"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/plan_charging_working_title"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_charging_title" />
-
-            <TextView
-                android:id="@+id/plan_charging_working_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:text="Charging Time"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/plan_charging_latency_title"
-                app:layout_constraintTop_toTopOf="@+id/plan_charging_latency_title" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@+id/latency_0"
-                app:layout_constraintBottom_toBottomOf="@+id/latency_0"
-                app:layout_constraintEnd_toStartOf="@+id/latency_0"
-                android:text="第一段"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginEnd="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@+id/latency_1"
-                app:layout_constraintBottom_toBottomOf="@+id/latency_1"
-                app:layout_constraintEnd_toStartOf="@+id/latency_1"
-                android:text="第二段"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginEnd="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@+id/latency_2"
-                app:layout_constraintBottom_toBottomOf="@+id/latency_2"
-                app:layout_constraintEnd_toStartOf="@+id/latency_2"
-                android:text="第三段"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginEnd="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@+id/latency_3"
-                app:layout_constraintBottom_toBottomOf="@+id/latency_3"
-                app:layout_constraintEnd_toStartOf="@+id/latency_3"
-                android:text="第四段"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginEnd="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@+id/latency_4"
-                app:layout_constraintBottom_toBottomOf="@+id/latency_4"
-                app:layout_constraintEnd_toStartOf="@+id/latency_4"
-                android:text="第五段"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginEnd="10dp"/>
-
-            <EditText
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:id="@+id/latency_0"
-                app:layout_constraintStart_toStartOf="@+id/plan_charging_latency_title"
-                app:layout_constraintEnd_toEndOf="@+id/plan_charging_latency_title"
-                app:layout_constraintTop_toBottomOf="@+id/plan_charging_latency_title"
-                android:inputType="numberDecimal"
-                android:lines="1"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:hint="0"
-                android:textColorHint="@color/grey"/>
-            <EditText
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:id="@+id/latency_1"
-                app:layout_constraintStart_toStartOf="@+id/plan_charging_latency_title"
-                app:layout_constraintEnd_toEndOf="@+id/plan_charging_latency_title"
-                app:layout_constraintTop_toBottomOf="@+id/latency_0"
-                android:inputType="numberDecimal"
-                android:lines="1"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:hint="0"
-                android:textColorHint="@color/grey"/>
-            <EditText
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:id="@+id/latency_2"
-                app:layout_constraintStart_toStartOf="@+id/plan_charging_latency_title"
-                app:layout_constraintEnd_toEndOf="@+id/plan_charging_latency_title"
-                app:layout_constraintTop_toBottomOf="@+id/latency_1"
-                android:inputType="numberDecimal"
-                android:lines="1"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:hint="0"
-                android:textColorHint="@color/grey"/>
-            <EditText
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:id="@+id/latency_3"
-                app:layout_constraintStart_toStartOf="@+id/plan_charging_latency_title"
-                app:layout_constraintEnd_toEndOf="@+id/plan_charging_latency_title"
-                app:layout_constraintTop_toBottomOf="@+id/latency_2"
-                android:inputType="numberDecimal"
-                android:lines="1"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:hint="0"
-                android:textColorHint="@color/grey"/>
-            <EditText
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:id="@+id/latency_4"
-                app:layout_constraintStart_toStartOf="@+id/plan_charging_latency_title"
-                app:layout_constraintEnd_toEndOf="@+id/plan_charging_latency_title"
-                app:layout_constraintTop_toBottomOf="@+id/latency_3"
-                android:inputType="numberDecimal"
-                android:lines="1"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:hint="0"
-                android:textColorHint="@color/grey"/>
-
-
-            <EditText
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:id="@+id/charging_0"
-                app:layout_constraintStart_toStartOf="@+id/plan_charging_working_title"
-                app:layout_constraintEnd_toEndOf="@+id/plan_charging_working_title"
-                app:layout_constraintTop_toBottomOf="@+id/plan_charging_working_title"
-                android:inputType="numberDecimal"
-                android:lines="1"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:hint="0"
-                android:textColorHint="@color/grey"/>
-            <EditText
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:id="@+id/charging_1"
-                app:layout_constraintStart_toStartOf="@+id/plan_charging_working_title"
-                app:layout_constraintEnd_toEndOf="@+id/plan_charging_working_title"
-                app:layout_constraintTop_toBottomOf="@+id/charging_0"
-                android:inputType="numberDecimal"
-                android:lines="1"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:hint="0"
-                android:textColorHint="@color/grey"/>
-            <EditText
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:id="@+id/charging_2"
-                app:layout_constraintStart_toStartOf="@+id/plan_charging_working_title"
-                app:layout_constraintEnd_toEndOf="@+id/plan_charging_working_title"
-                app:layout_constraintTop_toBottomOf="@+id/charging_1"
-                android:inputType="numberDecimal"
-                android:lines="1"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:hint="0"
-                android:textColorHint="@color/grey"/>
-            <EditText
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:id="@+id/charging_3"
-                app:layout_constraintStart_toStartOf="@+id/plan_charging_working_title"
-                app:layout_constraintEnd_toEndOf="@+id/plan_charging_working_title"
-                app:layout_constraintTop_toBottomOf="@+id/charging_2"
-                android:inputType="numberDecimal"
-                android:lines="1"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:hint="0"
-                android:textColorHint="@color/grey"/>
-            <EditText
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:id="@+id/charging_4"
-                app:layout_constraintStart_toStartOf="@+id/plan_charging_working_title"
-                app:layout_constraintEnd_toEndOf="@+id/plan_charging_working_title"
-                app:layout_constraintTop_toBottomOf="@+id/charging_3"
-                android:inputType="numberDecimal"
-                android:lines="1"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:hint="0"
-                android:textColorHint="@color/grey"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/latency_0"
-                app:layout_constraintTop_toTopOf="@+id/latency_0"
-                app:layout_constraintBottom_toBottomOf="@+id/latency_0"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="*5(mins)"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/latency_1"
-                app:layout_constraintTop_toTopOf="@+id/latency_1"
-                app:layout_constraintBottom_toBottomOf="@+id/latency_1"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="*5(mins)"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/latency_2"
-                app:layout_constraintTop_toTopOf="@+id/latency_2"
-                app:layout_constraintBottom_toBottomOf="@+id/latency_2"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="*5(mins)"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/latency_3"
-                app:layout_constraintTop_toTopOf="@+id/latency_3"
-                app:layout_constraintBottom_toBottomOf="@+id/latency_3"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="*5(mins)"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/latency_4"
-                app:layout_constraintTop_toTopOf="@+id/latency_4"
-                app:layout_constraintBottom_toBottomOf="@+id/latency_4"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="*5(mins)"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/charging_0"
-                app:layout_constraintTop_toTopOf="@+id/charging_0"
-                app:layout_constraintBottom_toBottomOf="@+id/charging_0"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="*5(mins)"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/charging_1"
-                app:layout_constraintTop_toTopOf="@+id/charging_1"
-                app:layout_constraintBottom_toBottomOf="@+id/charging_1"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="*5(mins)"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/charging_2"
-                app:layout_constraintTop_toTopOf="@+id/charging_2"
-                app:layout_constraintBottom_toBottomOf="@+id/charging_2"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="*5(mins)"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/charging_3"
-                app:layout_constraintTop_toTopOf="@+id/charging_3"
-                app:layout_constraintBottom_toBottomOf="@+id/charging_3"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="*5(mins)"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/charging_4"
-                app:layout_constraintTop_toTopOf="@+id/charging_4"
-                app:layout_constraintBottom_toBottomOf="@+id/charging_4"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="*5(mins)"/>
-
-            <Button
-                android:id="@+id/plan_charging_send"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:onClick="onClick"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/plan_charging_send_result"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/charging_4" />
-            <TextView
-                android:id="@+id/plan_charging_send_result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/fail"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/plan_charging_send"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/plan_charging_send"
-                app:layout_constraintTop_toTopOf="@+id/plan_charging_send" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_aa28"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -1486,7 +1217,7 @@
             android:background="@drawable/charginglagencyborder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_aa27"
+            app:layout_constraintTop_toBottomOf="@+id/cl_aa26"
             app:layout_constraintWidth_percent="0.9">
 
             <Button

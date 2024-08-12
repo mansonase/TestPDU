@@ -40,7 +40,7 @@ class GattAttributes {
         const val power_factor = "0000aa14-0000-1000-8000-00805f9b34fb"
         const val load = "0000aa15-0000-1000-8000-00805f9b34fb"
         const val load_detected = "0000aa16-0000-1000-8000-00805f9b34fb"
-        const val control_feedback="0000aa17-0000-1000-8000-00805f9b34fb"
+        const val command_feedback="0000aa17-0000-1000-8000-00805f9b34fb"
 
         const val activate_power = "0000aa21-0000-1000-8000-00805f9b34fb"
         const val set_time = "0000aa22-0000-1000-8000-00805f9b34fb"
@@ -48,7 +48,7 @@ class GattAttributes {
         const val read_recorded_data = "0000aa24-0000-1000-8000-00805f9b34fb"
         const val nfc_tag_id = "0000aa25-0000-1000-8000-00805f9b34fb"
         const val charging_latency = "0000aa26-0000-1000-8000-00805f9b34fb"
-        const val plan_charging="0000aa27-0000-1000-8000-00805f9b34fb"
+        const val createID="0000aa27-0000-1000-8000-00805f9b34fb"
         const val read_all_charging_record="0000aa28-0000-1000-8000-00805f9b34fb"
 
         const val hardware_status = "0000aa31-0000-1000-8000-00805f9b34fb"
@@ -87,11 +87,12 @@ class GattAttributes {
         const val mDownloadOn="download_on"
 
         const val mReadRecordedData="read_recorded_data"
+        const val mClearRecordedData="clear_recorded_data"
         const val mNfcTagId="nfc_tag_id"
         const val mChargingLatencyRead="charging_latency_read"
         const val mChargingLatencySend="charging_latency_send"
         const val mPlanChargingRead="plan_charging_read"
-        const val mPlanChargingSend="plan_charging_send"
+
         const val mAllChargingReport="all_charging_report"
 
         const val mHardwareStatus="hardware_status"
@@ -107,6 +108,8 @@ class GattAttributes {
         const val mConsumption="consumption"
         const val mNone="none"
 
+        const val mCommandFeedback="command_feedback"
+        const val mCreateID="create_id"
     }
 
 

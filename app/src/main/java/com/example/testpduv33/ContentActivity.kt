@@ -13,6 +13,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.connect_activity.*
+import java.security.SecureRandom
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,7 +35,8 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
     private val mPlanArray=ByteArray(10)
 
     private lateinit var progressBar: ProgressBar
-    private var minutes=0
+
+    private var seconds=0
     private val reportList:MutableList<MutableMap<String,String>> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +61,7 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
         watt_title.text=("(0xAA13) "+getString(R.string.watt))
         power_factor_title.text=("(0xAA14) "+getString(R.string.power_factor))
         recorded_data_button.text=("(0xAA24)\n"+getString(R.string.record_data))
+        recorded_data_clear.text=("0xAA24\n"+getString(R.string.clear_recored_data))
 
         recorded_data_current_title.text=(getString(R.string.current)+": ")
         recorded_data_voltage_title.text=(getString(R.string.Voltage)+": ")
@@ -67,6 +70,8 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
 
         load_title.text=("(0xAA15)\n"+getString(R.string.load))
         load_detected_title.text=("(0xAA16)\n"+getString(R.string.load_detect))
+
+        command_feedback_title.text="(0xAA17) ${getString(R.string.command_feedback_title)}"
         download_on_title.text=("(0xAA23)\n"+getString(R.string.download_on))
         manufacturer_name_title.text=("(0x2A29)\n"+getString(R.string.manufacturer_name))
         nfc_tag_id_title.text=("(0xAA25) "+getString(R.string.nfc_tag_id))
@@ -81,10 +86,10 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
         error_code_title.text=("(0xAA33)\n"+getString(R.string.error_code))
         charging_latency_read_title.text=("(0xAA26)\n"+getString(R.string.charging_latency)+" : ")
         charging_latency_send_title.text=("(0xAA26) "+getString(R.string.send))
+        create_id_title.text=("0xAA27 create ID")
         machine_status_title.text=("(0xAA42)\n"+getString(R.string.machine_status))
         meter_version_title.text=("(0xAA43)\n"+getString(R.string.meter_version))
 
-        plan_charging_send.text=("(0xAA27)\n"+"SEND")
 
         progressBar=findViewById(R.id.progressbar)
 
@@ -217,9 +222,10 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
             }
             GattAttributes.mChargingLatencySend->{
 
-                val minutes=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
+                val timeSeconds=intent.getIntExtra(BluetoothLeService.EXTRA_DATA,0)
 
-                charging_latency_send_content.text=("$minutes mins, ${getString(R.string.msg_sent)}")
+
+                charging_latency_send_content.text=("$timeSeconds seconds, ${getString(R.string.msg_sent)}")
                 charging_latency_send_content.postDelayed(Runnable {
                     charging_latency_send_content.text=("ready")
                 },3000L)
@@ -237,11 +243,19 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
                 power_off_content.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
                 power_on_content.text=getString(R.string.fail)
             }
-            GattAttributes.mPlanChargingSend->{
-                plan_charging_send_result.text=("charging plan sent")
-                plan_charging_send_result.postDelayed({
-                    plan_charging_send_result.text=("ready")
-                },3000L)
+            GattAttributes.mClearRecordedData->{
+                val value=intent.getIntExtra(BluetoothLeService.EXTRA_DATA,0)
+                if (value==1){
+                    recorded_data_start_time_content.text="0000-00-00 00:00:00"
+                    recorded_data_end_time_content.text="0000-00-00 00:00:00"
+                    recorded_data_current_content.text="0000.000"
+                    recorded_data_voltage_content.text="0000.000"
+                    recorded_data_power_content.text="0000.000"
+                    recorded_data_power_factor_content.text="0000.000"
+                    recorded_data_consumption_content.text="0000.000"
+                    recorded_data_none_content.text=getString(R.string.fail)
+                    recorded_data_id.text="ID: "
+                }
             }
         }
     }
@@ -321,16 +335,28 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
                     recorded_data_consumption_content.text=array.get(6)
                     recorded_data_none_content.text=array.get(7)
                 }
+
+                val bundle=intent.getBundleExtra("aa24")
+                bundle?.let {
+                    val strID=it.get("id32").toString()
+                    val nRowID= strID.substring(0,24)+"\n"+
+                                strID.substring(24,48)+"\n"+
+                                strID.substring(48,72)+"\n"+
+                                strID.substring(72)
+
+                    val combinedID="ID: $nRowID"
+                    recorded_data_id.text=combinedID
+                }
             }
             GattAttributes.mNfcTagId->{
                 nfc_tag_id_content.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
             }
             GattAttributes.mChargingLatencyRead -> {
 
-                val value=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
-                val minutes=(value?.toInt()?:0)*5
+                val value=intent.getIntExtra(BluetoothLeService.EXTRA_DATA,0)
 
-                charging_latency_read_content.text=("$value     $minutes ${getString(R.string.minutes)}")
+
+                charging_latency_read_content.text=("You set $value seconds")
 
             }
             GattAttributes.mHardwareStatus->{
@@ -356,6 +382,10 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
             }
             GattAttributes.mPowerRead->{
                 power_read_content.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
+            }
+            GattAttributes.mCommandFeedback->{
+                val data=intent.getIntExtra(BluetoothLeService.EXTRA_DATA,0)
+                getCommandFeedback(data)
             }
         }
     }
@@ -523,34 +553,25 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
                     mBluetoothLeService?.readCharacteristic(characteristic!!)
                 }
             }
-            R.id.charging_latency_plus->{
-                minutes++
-                if (minutes>255){
-                    minutes=0
-                }
-                charging_latency_show_number.text=((minutes*5).toString()+" ${getString(R.string.minutes)}")
-            }
-            R.id.charging_latency_minus->{
-                minutes--
-
-                if (minutes<0){
-                    minutes=255
-                }
-
-                charging_latency_show_number.text=((minutes*5).toString()+" ${getString(R.string.minutes)}")
-            }
             R.id.charging_latency_send_title->{
 
+                var inputText=""
                 if (charging_latency_input.text.isNullOrEmpty()){
-                    minutes=0
-                }else if(charging_latency_input.text.toString().toInt()>255){
+                    seconds=0
+                    inputText=inputText.padStart(6,'0')
+                }else if(charging_latency_input.text.length>6){
                     Toast.makeText(this,"數字請小於255",Toast.LENGTH_SHORT).show()
                     return
                 }else{
-                    minutes=charging_latency_input.text.toString().toInt()
+                    inputText=charging_latency_input.text.toString()
+
+                    if (inputText.length<6){
+                        inputText=inputText.padStart(6,'0')
+                    }
                 }
 
-                val byteArray= byteArrayOf((minutes and 0xFF).toByte())
+
+                val byteArray= hexStringToByteArray(inputText)
 
                 characteristic=
                     (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
@@ -644,19 +665,34 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
                     mBluetoothLeService?.readCharacteristic(characteristic!!)
                 }
             }
-            R.id.plan_charging_send->{
-                checkAllPlanChargingDuration()
-                characteristic=(mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
-                    .getCharacteristic(UUID.fromString(GattAttributes.plan_charging))
-                if (characteristic!=null){
-                    mBluetoothLeService?.writeCharacteristic(characteristic!!,mPlanArray)
-                }
-            }
             R.id.charging_record_report->{
                 characteristic=(mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
                     .getCharacteristic(UUID.fromString(GattAttributes.read_all_charging_record))
                 if (characteristic!=null){
                     mBluetoothLeService?.readCharacteristic(characteristic!!)
+                }
+            }
+            R.id.command_feedback_title->{
+                characteristic=(mBluetoothLeService?.getSupportedGattService(GattAttributes.POWER_MEASUREMENT)as BluetoothGattService)
+                    .getCharacteristic(UUID.fromString(GattAttributes.command_feedback))
+                if (characteristic!=null){
+                    mBluetoothLeService?.setCharacteristicNotification(characteristic!!,true)
+                }
+            }
+            R.id.create_id_title->{
+                val array=createRandomID()
+                characteristic=(mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL) as BluetoothGattService)
+                    .getCharacteristic(UUID.fromString(GattAttributes.createID))
+                if (characteristic!=null){
+                    mBluetoothLeService?.writeCharacteristic(characteristic!!, array)
+                }
+            }
+            R.id.recorded_data_clear->{
+                val array= byteArrayOf(0x01)
+                characteristic=(mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL) as BluetoothGattService)
+                    .getCharacteristic(UUID.fromString(GattAttributes.read_recorded_data))
+                if (characteristic!=null){
+                    mBluetoothLeService?.writeCharacteristic(characteristic!!,array)
                 }
             }
         }
@@ -813,115 +849,7 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
 
         }.start()
     }
-    private fun checkAllPlanChargingDuration(){
-        val tLatency0:Int
-        val tLatency1:Int
-        val tLatency2:Int
-        val tLatency3:Int
-        val tLatency4:Int
 
-        val tCharging0:Int
-        val tCharging1:Int
-        val tCharging2:Int
-        val tCharging3:Int
-        val tCharging4:Int
-
-        if (latency_0.text.isNullOrEmpty()){
-            tLatency0=0
-        }else if (latency_0.text.toString().toInt()>255){
-            Toast.makeText(this,"數字請小於255",Toast.LENGTH_SHORT).show()
-            return
-        }else{
-            tLatency0=latency_0.text.toString().toInt()
-        }
-        if (latency_1.text.isNullOrEmpty()){
-            tLatency1=0
-        }else if (latency_1.text.toString().toInt()>255){
-            Toast.makeText(this,"數字請小於255",Toast.LENGTH_SHORT).show()
-            return
-        }else{
-            tLatency1=latency_1.text.toString().toInt()
-        }
-        if (latency_2.text.isNullOrEmpty()){
-            tLatency2=0
-        }else if (latency_2.text.toString().toInt()>255){
-            Toast.makeText(this,"數字請小於255",Toast.LENGTH_SHORT).show()
-            return
-        }else{
-            tLatency2=latency_2.text.toString().toInt()
-        }
-        if (latency_3.text.isNullOrEmpty()){
-            tLatency3=0
-        }else if (latency_3.text.toString().toInt()>255){
-            Toast.makeText(this,"數字請小於255",Toast.LENGTH_SHORT).show()
-            return
-        }else{
-            tLatency3=latency_3.text.toString().toInt()
-        }
-        if (latency_4.text.isNullOrEmpty()){
-            tLatency4=0
-        }else if (latency_4.text.toString().toInt()>255){
-            Toast.makeText(this,"數字請小於255",Toast.LENGTH_SHORT).show()
-            return
-        }else{
-            tLatency4=latency_4.text.toString().toInt()
-        }
-        if (charging_0.text.isNullOrEmpty()){
-            tCharging0=0
-        }else if (charging_0.text.toString().toInt()>255){
-            Toast.makeText(this,"數字請小於255",Toast.LENGTH_SHORT).show()
-            return
-        }else{
-            tCharging0=charging_0.text.toString().toInt()
-        }
-        if (charging_1.text.isNullOrEmpty()){
-            tCharging1=0
-        }else if (charging_1.text.toString().toInt()>255){
-            Toast.makeText(this,"數字請小於255",Toast.LENGTH_SHORT).show()
-            return
-        }else{
-            tCharging1=charging_1.text.toString().toInt()
-        }
-        if (charging_2.text.isNullOrEmpty()){
-            tCharging2=0
-        }else if (charging_2.text.toString().toInt()>255){
-            Toast.makeText(this,"數字請小於255",Toast.LENGTH_SHORT).show()
-            return
-        }else{
-            tCharging2=charging_2.text.toString().toInt()
-        }
-        if (charging_3.text.isNullOrEmpty()){
-            tCharging3=0
-        }else if (charging_3.text.toString().toInt()>255){
-            Toast.makeText(this,"數字請小於255",Toast.LENGTH_SHORT).show()
-            return
-        }else{
-            tCharging3=charging_3.text.toString().toInt()
-        }
-        if (charging_4.text.isNullOrEmpty()){
-            tCharging4=0
-        }else if (charging_4.text.toString().toInt()>255){
-            Toast.makeText(this,"數字請小於255",Toast.LENGTH_SHORT).show()
-            return
-        }else{
-            tCharging4=charging_4.text.toString().toInt()
-        }
-
-        mPlanArray[0]= (tLatency0 and 0xFF).toByte()
-        mPlanArray[1]=(tCharging0 and 0xFF).toByte()
-
-        mPlanArray[2]= (tLatency1 and 0xFF).toByte()
-        mPlanArray[3]=(tCharging1 and 0xFF).toByte()
-
-        mPlanArray[4]= (tLatency2 and 0xFF).toByte()
-        mPlanArray[5]=(tCharging2 and 0xFF).toByte()
-
-        mPlanArray[6]= (tLatency3 and 0xFF).toByte()
-        mPlanArray[7]=(tCharging3 and 0xFF).toByte()
-
-        mPlanArray[8]= (tLatency4 and 0xFF).toByte()
-        mPlanArray[9]=(tCharging4 and 0xFF).toByte()
-    }
     private fun displayAllChargingData(intent: Intent){
 
         val llm=LinearLayoutManager(this)
@@ -1025,5 +953,68 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
         val calendar=Calendar.getInstance()
         calendar.timeInMillis=seconds*1000
         return format.format(calendar.time)
+    }
+
+    private fun getCommandFeedback(command:Int){
+       val feedback=when(command){
+            1->{
+                getString(R.string.command_feedback_01)
+            }
+            2->{
+                getString(R.string.command_feedback_02)
+            }
+            3->{
+                getString(R.string.command_feedback_03)
+            }
+            4->{
+                getString(R.string.command_feedback_04)
+            }
+            5->{
+                getString(R.string.command_feedback_05)
+            }
+            6->{
+                getString(R.string.command_feedback_06)
+            }
+            7->{
+                getString(R.string.command_feedback_07)
+            }
+            8->{
+                getString(R.string.command_feedback_08)
+            }
+            else->{
+                "No feedback"
+            }
+        }
+        command_feedback_content.text=feedback
+    }
+
+    private fun createRandomID():ByteArray{
+        val random=SecureRandom()
+        val bytes=ByteArray(32)
+
+        random.nextBytes(bytes)
+
+        val displayArray=ByteArray(32){
+            bytes[it]
+        }
+        val stringArray=displayArray.joinToString {
+            "%02X".format(it)
+        }
+        Log.d(TAG,"string array size are ${stringArray.length}")
+        val nRowString= stringArray.substring(0,32)+"\n"+
+                        stringArray.substring(32,64)+"\n"+
+                        stringArray.substring(64,96)+"\n"+
+                        stringArray.substring(96)
+
+        create_id_content.text = "ID: $nRowString"
+        return bytes
+    }
+
+    private fun hexStringToByteArray(hexString:String):ByteArray{
+        require(hexString.length%2==0)
+
+        return ByteArray(hexString.length/2){
+            hexString.substring(it*2,it*2+2).toInt(16).toByte()
+        }
     }
 }

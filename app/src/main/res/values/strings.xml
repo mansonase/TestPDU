@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">F116 V33 Engineer</string>
+    <string name="app_name">F116 V40 Engineer</string>
     <string name="need_fine_permission">Need Location Permission</string>
     <string name="need_fine_permission_to_use_ble">Ask for BLE function</string>
     <string name="ok_i_know">OK, I know</string>
@@ -56,5 +56,16 @@
 
     <string name="its_on">It\'s ON</string>
     <string name="its_off">It\'s OFF</string>
-    
+
+    <string name="command_feedback_title">COMMAND FEEDBACK</string>
+    <string name="command_feedback_01">1--0xAA21 on command received and \nrelay had been turned on</string>
+    <string name="command_feedback_02">2--0xAA21 off command received and \nrelay had been turned on</string>
+    <string name="command_feedback_03">3--0xAA26 latency command(latency&#8800;0) received and is delaying</string>
+    <string name="command_feedback_04">4--0xAA26 disable latency command (latency=0) received and timer stopped</string>
+    <string name="command_feedback_05">5--0xAA26 latency command received \nbut ignored (charging had already began)</string>
+    <string name="command_feedback_06">6--Unique charging ID received</string>
+    <string name="command_feedback_07">7--Record had been cleared</string>
+    <string name="command_feedback_08">8--Charging stop</string>
+
+    <string name="clear_recored_data">clear record</string>
 </resources>

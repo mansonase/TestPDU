@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">F116 V33 工程</string>
+    <string name="app_name">F116 V40 工程</string>
     <string name="need_fine_permission">需要位置權限</string>
     <string name="need_fine_permission_to_use_ble">需要位置權限來開啟藍芽</string>
     <string name="ok_i_know">好的，知道了</string>
@@ -54,4 +54,16 @@
 
     <string name="its_on">充电中</string>
     <string name="its_off">未充电</string>
+
+    <string name="command_feedback_title">指令反馈</string>
+    <string name="command_feedback_01">1--收到 0xAA21 命令并已成功打开继电器。</string>
+    <string name="command_feedback_02">2--收到 0xAA21 关闭命令，但继电器已经被打开。</string>
+    <string name="command_feedback_03">3--收到 0xAA26 延迟命令（延迟≠0），正在延迟中。</string>
+    <string name="command_feedback_04">4--收到 0xAA26 禁用延迟命令（延迟=0），计时器已停止。</string>
+    <string name="command_feedback_05">5--收到 0xAA26 延迟命令，但已忽略（充电已经开始）。</string>
+    <string name="command_feedback_06">6--“收到唯一的充电ID。</string>
+    <string name="command_feedback_07">7--记录已被清除。</string>
+    <string name="command_feedback_08">8--充电停止。</string>
+
+    <string name="clear_recored_data">清除记录</string>
 </resources>

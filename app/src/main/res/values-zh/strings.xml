@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">F116 V33 工程</string>
+    <string name="app_name">F116 V40 工程</string>
     <string name="need_fine_permission">需要位置權限</string>
     <string name="need_fine_permission_to_use_ble">需要位置權限來開啟藍芽</string>
     <string name="ok_i_know">好的，知道了</string>
@@ -51,4 +51,16 @@
     <string name="error_code">错误码</string>
     <string name="machine_status">机器状态</string>
     <string name="meter_version">meter参数版本</string>
+
+    <string name="command_feedback_title">COMMAND FEEDBACK</string>
+    <string name="command_feedback_01">1--0xAA21 on command received and relay had been turned on</string>
+    <string name="command_feedback_02">2--0xAA21 off command received and relay had been turned on</string>
+    <string name="command_feedback_03">3--0xAA26 latency command(latency&#8800;0) received and is delaying</string>
+    <string name="command_feedback_04">4--0xAA26 disable latency command (latency=0) received and timer stopped</string>
+    <string name="command_feedback_05">5--0xAA26 latency command received but ignored (charging had already began)</string>
+    <string name="command_feedback_06">6--Unique charging ID received</string>
+    <string name="command_feedback_07">7--Record had been cleared</string>
+    <string name="command_feedback_08">8--Charging stop</string>
+
+    <string name="clear_recored_data">clear record</string>
 </resources>

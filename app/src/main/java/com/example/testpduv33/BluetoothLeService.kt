@@ -4,6 +4,7 @@ import android.app.Service
 import android.bluetooth.*
 import android.content.Intent
 import android.os.Binder
+import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import java.math.RoundingMode
@@ -172,14 +173,12 @@ class BluetoothLeService():Service() {
                     intent.putExtra(CHARACTERISTIC,GattAttributes.mSetTime)
                 }
                 GattAttributes.charging_latency->{
-                    val data=((characteristic.value[0].toInt() and (0xFF))*5).toString()
+                    val value=characteristic.value
+                    val data=byteArrayToInt(value)
                     intent.putExtra(EXTRA_DATA,data)
                     intent.putExtra(CHARACTERISTIC,GattAttributes.mChargingLatencySend)
                 }
-                GattAttributes.plan_charging->{
-                    Log.d(TAG,"plan charging sent success ${Arrays.toString(characteristic.value)}")
-                    intent.putExtra(CHARACTERISTIC,GattAttributes.mPlanChargingSend)
-                }
+
                 GattAttributes.download_request->{
                     val data = (characteristic.value[0].toInt() and (0xFF))
                     if (data==1){
@@ -203,6 +202,15 @@ class BluetoothLeService():Service() {
 
                     }
 
+                }
+                GattAttributes.read_recorded_data->{
+                    val data=characteristic.value
+                    Log.d(TAG,"testwrite, size ${data.size}, ${data.toHexString()}, $data")
+                    if (data.size==1){
+                        intent.putExtra(CHARACTERISTIC,GattAttributes.mClearRecordedData)
+                        intent.putExtra(EXTRA_DATA,1)
+                        Log.d(TAG,"testwrite, combine intent")
+                    }
                 }
             }
         }else if(action== ACTION_DATA_AVAILABLE){//read or notify
@@ -349,38 +357,52 @@ class BluetoothLeService():Service() {
                 GattAttributes.read_recorded_data -> {
 
                     val array=ArrayList<String>()
+                    val fullArray=characteristic.value
 
-                    val startTimeData=getFlatDate((characteristic.value[0].toLong() and (0xFF))*256*65536+
-                            (characteristic.value[1].toLong() and (0xFF))*256*256+
-                            (characteristic.value[2].toLong() and (0xFF))*256+
-                            (characteristic.value[3].toLong() and (0xFF)))
+                    val idArray:ByteArray?
+                    val dataArray:ByteArray
 
-                    val endTimeData=getFlatDate((characteristic.value[4].toLong() and (0xFF))*256*65536+
-                            (characteristic.value[5].toLong() and (0xFF))*256*256+
-                            (characteristic.value[6].toLong() and (0xFF))*256+
-                            (characteristic.value[7].toLong() and (0xFF)))
+                    if (fullArray.size>24){
+                        dataArray=fullArray.sliceArray(32 until fullArray.size)
+                        idArray=fullArray.sliceArray(0 until 32)
 
-                    val currentData=(((characteristic.value[8].toLong() and (0xFF))*256*256+
-                            (characteristic.value[9].toLong() and (0xFF))*256+
-                            (characteristic.value[10].toLong() and (0xFF))).toFloat()/1000f).toString()
+                        Log.d(TAG,"id is ${idArray.toHexString()}")
+                    }else{
+                        dataArray=fullArray
+                        idArray=null
+                    }
 
-                    val voltageData=(((characteristic.value[11].toLong() and (0xFF))*256*256+
-                            (characteristic.value[12].toLong() and (0xFF))*256+
-                            (characteristic.value[13].toLong() and (0xFF))).toFloat()/1000f).toString()
+                    val startTimeData=getFlatDate((dataArray[0].toLong() and (0xFF))*256*65536+
+                            (dataArray[1].toLong() and (0xFF))*256*256+
+                            (dataArray[2].toLong() and (0xFF))*256+
+                            (dataArray[3].toLong() and (0xFF)))
 
-                    val powerData=(((characteristic.value[14].toLong() and (0xFF))*256*256+
-                            (characteristic.value[15].toLong() and (0xFF))*256+
-                            (characteristic.value[16].toLong() and (0xFF))).toFloat()/1000f).toString()
+                    val endTimeData=getFlatDate((dataArray[4].toLong() and (0xFF))*256*65536+
+                            (dataArray[5].toLong() and (0xFF))*256*256+
+                            (dataArray[6].toLong() and (0xFF))*256+
+                            (dataArray[7].toLong() and (0xFF)))
 
-                    val powerFactorData=(((characteristic.value[17].toLong() and (0xFF))*256+
-                            (characteristic.value[18].toLong() and (0xFF))).toFloat()/10_000f).toString()
+                    val currentData=(((dataArray[8].toLong() and (0xFF))*256*256+
+                            (dataArray[9].toLong() and (0xFF))*256+
+                            (dataArray[10].toLong() and (0xFF))).toFloat()/1000f).toString()
 
-                    val consumptionData=(((characteristic.value[19].toLong() and (0xFF))*256*256+
-                            (characteristic.value[20].toLong() and (0xFF))*256+
-                            (characteristic.value[21].toLong() and (0xFF))).toFloat()/1000f).toString()
+                    val voltageData=(((dataArray[11].toLong() and (0xFF))*256*256+
+                            (dataArray[12].toLong() and (0xFF))*256+
+                            (dataArray[13].toLong() and (0xFF))).toFloat()/1000f).toString()
 
-                    val noneData=((characteristic.value[22].toLong() and (0xFF))*256+
-                            (characteristic.value[23].toLong() and (0xFF))).toString()
+                    val powerData=(((dataArray[14].toLong() and (0xFF))*256*256+
+                            (dataArray[15].toLong() and (0xFF))*256+
+                            (dataArray[16].toLong() and (0xFF))).toFloat()/1000f).toString()
+
+                    val powerFactorData=(((dataArray[17].toLong() and (0xFF))*256+
+                            (dataArray[18].toLong() and (0xFF))).toFloat()/10_000f).toString()
+
+                    val consumptionData=(((dataArray[19].toLong() and (0xFF))*256*256+
+                            (dataArray[20].toLong() and (0xFF))*256+
+                            (dataArray[21].toLong() and (0xFF))).toFloat()/1000f).toString()
+
+                    val noneData=((dataArray[22].toLong() and (0xFF))*256+
+                            (dataArray[23].toLong() and (0xFF))).toString()
 
                     array.add(startTimeData)
                     array.add(endTimeData)
@@ -395,9 +417,16 @@ class BluetoothLeService():Service() {
 
                     intent.putExtra(CHARACTERISTIC, GattAttributes.mReadRecordedData)
 
-                    var data=characteristic.value.toHexString()
+                    idArray?.let {
 
-                    Log.d(TAG,"${characteristic.value.size}")
+                        val bundle=Bundle()
+                        val strID=it.toHexString()
+                        bundle.putString("id32",strID)
+                        intent.putExtra("aa24",bundle)
+                    }
+                    val data=fullArray.toHexString()
+
+                    Log.d(TAG,"${fullArray.size}")
                     Log.d(TAG,data)
                     Log.d(TAG, "$startTimeData, $endTimeData, $currentData, $voltageData, $powerData, $powerFactorData, $consumptionData, $noneData")
                 }
@@ -414,14 +443,12 @@ class BluetoothLeService():Service() {
                 }
                 GattAttributes.charging_latency->{
                     //for read only
-                    var data=""
-                    val size=characteristic.value.size
-                    for (i in 0 until size){
-                        data+= (characteristic.value[i].toInt() and (0xFF)).toString()
-                    }
-                    intent.putExtra(EXTRA_DATA, data)
+                    val value=characteristic.value
+                    val seconds=byteArrayToInt(value)
+
+                    intent.putExtra(EXTRA_DATA, seconds)
                     intent.putExtra(CHARACTERISTIC,GattAttributes.mChargingLatencyRead)
-                    Log.d(TAG, "$data, size is $size")
+                    Log.d(TAG, "$seconds, size is ${value.size}")
                 }
                 GattAttributes.hardware_status->{
                     var data="0x "+characteristic.value.toHexString()
@@ -474,6 +501,12 @@ class BluetoothLeService():Service() {
 
                     }
                 }
+                GattAttributes.command_feedback->{
+                    val data=(characteristic.value[0].toInt() and (0xFF))
+                    intent.putExtra(CHARACTERISTIC,GattAttributes.mCommandFeedback)
+                    intent.putExtra(EXTRA_DATA,data)
+                }
+
             }
         }
 
@@ -605,4 +638,10 @@ class BluetoothLeService():Service() {
             String.format("%02X",it)
         }
 
+    private fun byteArrayToInt(byteArray: ByteArray):Int{
+        val hexString=byteArray.joinToString(""){
+            "%02X".format(it)
+        }
+        return hexString.toInt(16)
+    }
 }
