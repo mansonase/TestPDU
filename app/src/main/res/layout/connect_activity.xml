@@ -1117,7 +1117,7 @@
                 android:background="@drawable/charginglagencyborder"
                 android:inputType="textCapWords"
                 android:digits="ABCDEFabcdef0123456789"
-                android:maxLength="6"
+                android:maxLength="8"
                 android:lines="1"
                 android:textColor="@color/black"
                 android:gravity="center"
@@ -1125,7 +1125,7 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/charging_latency_read_title"
-                android:hint="000000"
+                android:hint="00,000,000"
                 android:textColorHint="@color/grey"/>
 
             <TextView
@@ -1133,7 +1133,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="請輸入6位數字,,不輸入則為0,\n後開始充電"
+                android:text="延遲充電時間:\n請輸入數字,不輸入則為0"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/charging_latency_input"

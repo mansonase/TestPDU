@@ -57,7 +57,7 @@
 
     <string name="command_feedback_title">指令反馈</string>
     <string name="command_feedback_01">1--收到 0xAA21 命令并已成功打开继电器。</string>
-    <string name="command_feedback_02">2--收到 0xAA21 关闭命令，但继电器已经被打开。</string>
+    <string name="command_feedback_02">2--收到 0xAA21 关闭命令，但继电器已经被关闭。</string>
     <string name="command_feedback_03">3--收到 0xAA26 延迟命令（延迟≠0），正在延迟中。</string>
     <string name="command_feedback_04">4--收到 0xAA26 禁用延迟命令（延迟=0），计时器已停止。</string>
     <string name="command_feedback_05">5--收到 0xAA26 延迟命令，但已忽略（充电已经开始）。</string>
@@ -66,4 +66,8 @@
     <string name="command_feedback_08">8--充电停止。</string>
 
     <string name="clear_recored_data">清除记录</string>
+
+    <string name="latency_start_time_left">延迟开始，\n现在此设备还剩 %d 秒。</string>
+    <string name="latency_read_txt">此次延迟还剩 %d 秒。</string>
+
 </resources>

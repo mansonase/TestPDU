@@ -219,13 +219,14 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
             GattAttributes.mSetTime->{
                 set_time_content.text=intent.getStringExtra(BluetoothLeService.EXTRA_DATA)
                 get_time_content.text=getString(R.string.fail)
+                command_feedback_title.performClick()
             }
             GattAttributes.mChargingLatencySend->{
 
                 val timeSeconds=intent.getIntExtra(BluetoothLeService.EXTRA_DATA,0)
 
 
-                charging_latency_send_content.text=("$timeSeconds seconds, ${getString(R.string.msg_sent)}")
+                charging_latency_send_content.text=getString(R.string.latency_start_time_left,timeSeconds)
                 charging_latency_send_content.postDelayed(Runnable {
                     charging_latency_send_content.text=("ready")
                 },3000L)
@@ -356,7 +357,7 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
                 val value=intent.getIntExtra(BluetoothLeService.EXTRA_DATA,0)
 
 
-                charging_latency_read_content.text=("You set $value seconds")
+                charging_latency_read_content.text=getString(R.string.latency_read_txt,value)
 
             }
             GattAttributes.mHardwareStatus->{
@@ -555,23 +556,15 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
             }
             R.id.charging_latency_send_title->{
 
-                var inputText=""
+
                 if (charging_latency_input.text.isNullOrEmpty()){
                     seconds=0
-                    inputText=inputText.padStart(6,'0')
-                }else if(charging_latency_input.text.length>6){
-                    Toast.makeText(this,"數字請小於255",Toast.LENGTH_SHORT).show()
-                    return
                 }else{
-                    inputText=charging_latency_input.text.toString()
-
-                    if (inputText.length<6){
-                        inputText=inputText.padStart(6,'0')
-                    }
+                    seconds=charging_latency_input.text.toString().toInt()
                 }
 
 
-                val byteArray= hexStringToByteArray(inputText)
+                val byteArray= intToByteArray(seconds)
 
                 characteristic=
                     (mBluetoothLeService?.getSupportedGattService(GattAttributes.DEVICE_CONTROL)as BluetoothGattService)
@@ -673,10 +666,12 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
                 }
             }
             R.id.command_feedback_title->{
+                Log.d("testcommand","it is clicked")
                 characteristic=(mBluetoothLeService?.getSupportedGattService(GattAttributes.POWER_MEASUREMENT)as BluetoothGattService)
                     .getCharacteristic(UUID.fromString(GattAttributes.command_feedback))
                 if (characteristic!=null){
                     mBluetoothLeService?.setCharacteristicNotification(characteristic!!,true)
+                    //mBluetoothLeService?.readCharacteristic(characteristic!!)
                 }
             }
             R.id.create_id_title->{
@@ -1016,5 +1011,12 @@ class ContentActivity : AppCompatActivity(),View.OnClickListener {
         return ByteArray(hexString.length/2){
             hexString.substring(it*2,it*2+2).toInt(16).toByte()
         }
+    }
+    private fun intToByteArray(int: Int):ByteArray{
+        require(int in 0 .. 0xFFFFFF){"數值要在0至16,777,215之間"}
+        val byteArray=ByteArray(3){
+            (int shr (16 - it*8)and 0xFF).toByte()
+        }
+        return byteArray
     }
 }

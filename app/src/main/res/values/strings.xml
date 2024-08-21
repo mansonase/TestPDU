@@ -59,7 +59,7 @@
 
     <string name="command_feedback_title">COMMAND FEEDBACK</string>
     <string name="command_feedback_01">1--0xAA21 on command received and \nrelay had been turned on</string>
-    <string name="command_feedback_02">2--0xAA21 off command received and \nrelay had been turned on</string>
+    <string name="command_feedback_02">2--0xAA21 off command received and \nrelay had been turned off</string>
     <string name="command_feedback_03">3--0xAA26 latency command(latency&#8800;0) received and is delaying</string>
     <string name="command_feedback_04">4--0xAA26 disable latency command (latency=0) received and timer stopped</string>
     <string name="command_feedback_05">5--0xAA26 latency command received \nbut ignored (charging had already began)</string>
@@ -68,4 +68,7 @@
     <string name="command_feedback_08">8--Charging stop</string>
 
     <string name="clear_recored_data">clear record</string>
+
+    <string name="latency_start_time_left">Latency starting,\nNow this device is\n%d seconds left</string>
+    <string name="latency_read_txt">This latency %d\nseconds left</string>
 </resources>
